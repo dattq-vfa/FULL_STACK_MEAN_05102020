@@ -98,21 +98,42 @@ sum = () => 'sum'; // tra ve 1 gia tri
 // Giai phuong trinh bac 1: ax +b =0
 
 function ptb1(a,b){
-    (a!=0) ? x=-b/a : x='undifined';
+    if(a==0)
+    {
+        (b==0) ? x='Vo so nghiem' : x='Vo nghiem';
+    }
+    else
+    {
+        (b==0) ? x='Vo so nghiem':x= (-b)/a;
+    }
+    
     return `ket qua la: ` + x; 
 }
-// console.log(ptb1(0,1));
+ //console.log(ptb1(2,2));
 
 //Giai ptb2: ax^2 +bx + c = 0
  function ptb2(a,b,c) {
-     if(a==0){x=-c/b; return `x: ` + x;} 
-     else 
+     var A = (b**2 - 4*a*c) //den ta
+     if(A<0)
      {
-        x1 = (-b + Math.sqrt(b**2 - 4*a*c))/(2*a)
-        x2 = (-b - Math.sqrt(b**2 - 4*a*c))/(2*a)
-        return `x1: ` + x1 + `, x2: ` +  x2 ;
-    }
-     
+        return `Vo nghiem`
+     }
+     else
+     {
+        if(a==0){x=ptb1(b,c); return `x: ` + x;} 
+        else 
+        {
+           x1 = (-b + Math.sqrt(A))/(2*a)
+           x2 = (-b - Math.sqrt(A))/(2*a)
+           return `x1: ` + x1 + `, x2: ` +  x2 ;
+       }
+     }  
  }
-//console.log(ptb2(1,2,1))
+//console.log(ptb2(0,0,0))
 
+var arr = [1,2,3,4,5];
+//console.log(...arr)
+
+arr.forEach((value,index)=>{
+    //console.log(value);
+});
