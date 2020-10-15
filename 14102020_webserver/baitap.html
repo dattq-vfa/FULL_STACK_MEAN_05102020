@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    li{
+      display: flex;
+    }
+
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 style="padding-left: 50%;">Register Form</h2>
+  <form class="form-inline" action="/FORM" method="POST">
+    <ul>
+      <li>
+        <label for="Name1" >Full Name:
+          <input type="text" class="form-control mb-2 mr-sm-2" id="Name1" placeholder="Enter Full Name" name="Name">
+        </label>
+        <label for="Username1">Enter User Name:
+          <input type="text" class="form-control mb-2 mr-sm-2" id="Username1" placeholder="Enter User Name" name="username">
+        </label>
+      </li>
+      <li>
+        <label for="email2" class="mb-2 mr-sm-2">Email:
+          <input type="text" class="form-control mb-2 mr-sm-2" id="email2" placeholder="Enter email" name="email">
+        </label>  
+        <label for="pwd2" class="mb-2 mr-sm-2">Password:
+          <input type="password" class="form-control mb-2 mr-sm-2" id="pwd2" placeholder="Enter password" name="pswd">
+        </label>
+      </li>
+      <li>
+        <label for="phonenumber1" class="mb-2 mr-sm-2">Phone Number:
+          <input type="text" class="form-control mb-2 mr-sm-2" id="phonenumber1" placeholder="Enter Phone Number" name="phonenumber">
+        </label>
+        <label for="Adress1" class="mb-2 mr-sm-2">Adress:
+          <input type="text" class="form-control mb-2 mr-sm-2" id="Adress1" placeholder="Enter password" name="Address"> 
+        </label>
+      </li>
+      <li>
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+      </li>
+    </ul>
+  </form>
+</div>
+
+</body>
+</html>
