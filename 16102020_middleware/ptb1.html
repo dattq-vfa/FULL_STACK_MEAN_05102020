@@ -1,0 +1,85 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<h1>giai phuong trinh bac 1</h1>
+<form id="ptb1" action="">
+    <label for="soa">so a</label>
+    <input type="number" name="soa" id="soa">
+    <span class="err_soa"></span>
+    <br><br>
+    <label for="sob">so b</label>
+    <input type="number" name="sob" id="sob">
+    <span class="err_sob"></span>
+    <br><br>
+    <button type="submit">ket qua</button>
+    <span class="ketqua"></span>
+</form>
+<style>
+    .err_soa,.err_sob{
+        color: red;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+        $('#ptb1').on('submit',function(e){
+
+            //chan load lai trang :  e.preventDefault();
+            e.preventDefault();
+
+            //khai bao
+            var soa, sob,flag=1, err='';
+
+            //lay gia tri
+            soa = $('#soa').val();
+            sob = $('#sob').val();
+
+            //kiem tra
+            if((parseInt(soa) > 1000))
+            {
+                flag = 0;
+                $('.err_soa').text('so a <= 1000');
+            }
+            else if(soa=='')
+            {
+                console.log(soa);
+                flag = 0;
+                $('.err_soa').text('so a khong co gia tri');
+            }
+            else
+            {
+                $('.err_soa').text('');
+            }
+
+            if((parseInt(sob) > 1000))
+            {
+                flag = 0;
+                $('.err_sob').text('so b <= 1000');
+            }
+            else if(sob=='')
+            {
+                flag = 0;
+                $('.err_sob').text('so b khong co gia tri');
+            }
+            else
+            {
+                $('.err_sob').text('');
+            }
+
+            if(flag==1)
+            {
+                //gui ajax
+                $.ajax({
+                    url: 'giaiptb1',
+                    type: 'POST',
+                    data: {'soa' : soa, 'sob' : sob}, //'soa', 'sob' truyen parameter qua app.js
+                    success: function(result){
+                        $('.ketqua').text(result);
+                    }
+                });
+                alert('OK')
+                return false;
+                
+            }
+        });
+    });
+</script>
