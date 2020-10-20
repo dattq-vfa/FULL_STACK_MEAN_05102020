@@ -28,43 +28,44 @@
         <textarea name="content" id="content" cols="30" rows="10"></textarea>
     </div>
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Upload image</button>
+    <span id="path"></span>
     <br><br>
     <button type="submit" class="btn btn-primary">Submit</button>
     <div id="result"></div>
 
   </form>
-  <!-- The Modal -->
-  <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Upload Image</h4>
-          <span type="button" class="close" data-dismiss="modal">&times;</span>
-        </div>
-        <!-- //enctype="multipart/form-data" very important -->
-        <form id="upload_img" method="POST" enctype="multipart/form-data">
-            <!-- Modal body -->   
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="img">Image:</label>
-                    <input type="file" class="form-control" id="img" name="img">
-                </form>
-              </div>
-              
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Upload</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-              </div>
-        </form> 
-               
+</div>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Upload Image</h4>
+        <span type="button" class="close" data-dismiss="modal">&times;</span>
       </div>
+      <!-- //enctype="multipart/form-data" very important -->
+      <form id="upload_img" method="POST" enctype="multipart/form-data">
+          <!-- Modal body -->   
+          <div class="modal-body">
+              <div class="form-group">
+                  <label for="img">Image:</label>
+                  <input type="file" class="form-control" id="img" name="img">
+              </form>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Upload</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+      </form> 
+             
     </div>
   </div>
 </div>
-
+<br>
 <script>
     $(document).ready(function(){
         $('#registor').on('submit', function(e){
@@ -102,6 +103,7 @@
 
                     success: function (result) {
                         console.log(result);
+                        $('#path').text(result);
                     }
                 });
                 return false;

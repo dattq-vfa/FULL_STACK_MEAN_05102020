@@ -24,7 +24,8 @@ app.post('/register',(req,res)=>{
     let content = req.body.content;
     res.send(`<b>Name: ${name}</b>` + `<br><b>Password: ${pass}<b><br>` + content);
 })
-
+//save path img
+var path = '';
 //load multer
 const multer = require('multer');
 //cau hinh luu file
@@ -36,13 +37,26 @@ const storage = multer.diskStorage({
     //kiem tra file
     filename: (req,file,cb)=>{
         cb(null, Date.now() + '-' + file.originalname);
+        path = file.originalname;
     }
 });
 // Gọi ra sử dụng
 const uploads = multer ({storage: storage}).single('img');
 app.post('/upload_file',(req,res)=>{
     uploads(req, res, err=> {
-    (err) ? res.send(err):res.send('ok');
+        if(path=='') 
+        {
+            path='No choosed Image';
+        }
+        if(err) 
+        {
+            res.send(err);
+        }
+        else
+        {
+            res.send(path);
+            path='';
+        }
     });
 });
 
