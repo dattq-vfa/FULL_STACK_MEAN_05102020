@@ -73,8 +73,8 @@ app.post('/upload_file',(req,res)=>{
         else
         {
             res.send(path);
-            path='';
         } 
+        path='';
     });
 });
 app.get('/login',(req,res)=>{
