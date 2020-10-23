@@ -3,6 +3,8 @@
 //upload file
 //CKEDITOR:  là một trình soạn thảo văn bản HTML
 //BS4 modal
+//app.use('/',express.static('public')); khi sửng dụng những folder con của public 
+//thì không được ./public/image/.1.jpg mà phải ./image/.1.jpg
 
 const express = require('express');
 const app = express();
@@ -16,7 +18,7 @@ app.get('/', (req, res)=>{
 });
 
 // cấu hình đường dẫn tĩnh
-app.use('/', express.static('public'));
+app.use('/',express.static('public'));
 
 app.post('/register',(req,res)=>{
     let name = req.body.name;
