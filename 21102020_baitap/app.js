@@ -5,6 +5,7 @@
 //BS4 modal
 //app.use('/',express.static('public')); khi sửng dụng những folder con của public 
 //thì không được ./public/image/.1.jpg mà phải ./image/.1.jpg
+//$('#myModal').modal('toggle');//close modal khi click vao chon anh co san
 
 const express = require('express');
 const app = express();

@@ -99,9 +99,9 @@
     $(document).ready(function(){
 
       $('img').click(function(name_img){
-        var t1 =$(this).attr('src');
-        console.log(t1.split('/')[2]);
-        console.log(t1);
+        var t1 =$(this).attr('src').split('/')[2];
+        $('#path').text(t1);
+        $('#myModal').modal('toggle');//close modal khi click vao chon anh co san  
       });
 
         $('#registor').on('submit', function(e){
