@@ -25,6 +25,8 @@
 
 //tải npm 
 //npm install cookie-parser
+//html: c1: tạo button kết hợp thẻ <a herf="/logout"></a> và thuộc tính app.get
+//c2: sủ dụng type:get  window.location.href = '/login'; //chuyen trang và app.get thêm res.send() 
 
 const express = require('express');
 const app = express();
@@ -111,10 +113,16 @@ app.get('/login',(req,res)=>{
     res.sendFile(__dirname + '/login.html')
 });
 
+// c1:clear cookie 
 app.get('/logout', (req, res)=>{
     res.clearCookie('name');
     res.redirect('/login');
 });
+
+// c2:clear cookie app.get('/logout', (req, res)=>{
+//     res.clearCookie('name');
+//     res.send();
+// });
 
 var kq=0;
 app.post('/view-login',(req,res)=>{

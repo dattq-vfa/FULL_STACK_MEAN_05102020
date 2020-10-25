@@ -35,7 +35,9 @@
       <input type="checkbox" id="status" name="status">
       <label for="status"> Check Status</label><br>
       <br>
+      <!-- c1: tao duong dan  -->
       <button id="logout" class="btn btn-danger"><a href="Logout" style="text-decoration: none;">Logout</a></button>
+      <!-- Cach 2: clear cookie<button id="logout" class="btn btn-danger">Logout</button> -->
     </div>
     <input type="hidden" name="name_file" id="name_file">
     <br><br>
@@ -79,6 +81,16 @@
 <br>
 <script>
     $(document).ready(function(){
+      // $('#logout').click(function(e){ Cách 2: clear cookie
+      //   e.preventDefault();
+      //   $.ajax({
+      //     type:'GET',
+      //     url: 'logout',
+      //     success: function(){
+      //       window.location.href = '/login'; //chuyen trang
+      //     }
+      //   });
+      // });
         $('#registor').on('submit', function(e){
 
             e.preventDefault();
