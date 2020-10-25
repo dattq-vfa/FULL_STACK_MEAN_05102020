@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script> cnd tren internet -->
+</head>
+<body>
+
+<div class="container">
+  <h2>Form Registor</h2>
+  <form id="registor">
+    <div class="form-group">
+      <label for="usr">Name:</label>
+      <input type="text" class="form-control" id="usr" name="username">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" name="password">
+    </div>
+    <div class="form-group">
+        <label for="content">content:</label>
+        <textarea name="content" id="content" cols="30" rows="10"></textarea>
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Upload image</button>
+      <span id="path"></span>
+    </div>
+    <div class="form-group">
+      <input type="checkbox" id="status" name="status">
+      <label for="status"> Check Status</label><br>
+      <br>
+      <button id="logout" class="btn btn-danger"><a href="Logout" style="text-decoration: none;">Logout</a></button>
+    </div>
+    <input type="hidden" name="name_file" id="name_file">
+    <br><br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <div id="result"></div>
+
+  </form>
+</div>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Upload Image</h4>
+        <span type="button" class="close" data-dismiss="modal">&times;</span>
+      </div>
+      <!-- //enctype="multipart/form-data" very important -->
+      <form id="upload_img" method="POST" enctype="multipart/form-data">
+          <!-- Modal body -->   
+          <div class="modal-body">
+              <div class="form-group">
+                  <label for="img">Image:</label>
+                  <input type="file" class="form-control" id="img" name="img">
+                  <br>
+                  (NOTE: Image must .jpg .png, dung luong khong duoc > 100kb)
+              </form>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Upload</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+      </form> 
+             
+    </div>
+  </div>
+</div>
+<br>
+<script>
+    $(document).ready(function(){
+        $('#registor').on('submit', function(e){
+
+            e.preventDefault();
+            var name = $('#usr').val();
+            var pass = $('#pwd').val();
+            var content = CKEDITOR.instances['content'].getData();
+            var status = $('#status').prop('checked');
+            alert(status)
+            $.ajax({
+
+                url:'register',
+                type:'POST',
+                data: { 'name': name, 'pass': pass, 'content': content },
+                success: function (result) {
+                    $('#result').html(result);
+                }
+
+            });
+
+            return false;
+        });
+        $('#upload_img').on('submit', function(e){
+
+            e.preventDefault();
+            $.ajax({
+                    url: 'upload_file',
+                    type: 'POST',
+                    data: new FormData(this),// phai co this
+
+                    // cài đặt 3 cái cần để upload file
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+
+                    success: function (result) {
+                        console.log(result);
+                        $('#path').text(result);
+                        $('#name_file').val(result);
+                    }
+                });
+                return false;
+        });
+        
+    })
+</script>
+<!-- //ckeditor -->
+<script src="ckeditor/ckeditor.js"></script>
+<script>CKEDITOR.replace('content');</script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script> cnd tren internet -->
+</head>
+<body>
+<div class="container">
+  <h2>Login</h2>
+  <form id="login">
+    <div class="form-group">
+      <label for="usr">Name:</label>
+      <input type="text" class="form-control" id="usr" name="username">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" name="password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <div id="result"></div>
+  </form>
+</div>
+<script>
+    $(document).ready(function(){
+        $('#login').on('submit', function(e){
+
+            e.preventDefault();
+            var name = $('#usr').val();
+            var pass = $('#pwd').val();
+            // var content = CKEDITOR.instances['content'].getData();
+            $.ajax({
+
+                url:'view-login',
+                type:'POST',
+                data: { 'name': name, 'pass': pass },
+                success: function (result) {
+                  console.log(result.kq);
+                    // $('#result').html(result);
+                    if(result.kq==1){
+                      window.location.href = '/'; //chuyen trang
+                    }
+                    else{
+                      alert("please enter again!");
+                    }
+                }
+
+            });
+
+            return false;
+        });
+    })
+</script>
+
+</body>
+</html>
