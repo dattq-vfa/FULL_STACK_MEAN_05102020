@@ -69,20 +69,12 @@
           <div class="modal-body">
               <div class="form-group">
                   <label for="img">Image:</label>
-                  <input type="file" class="form-control" id="img" name="img">
+                  <!-- multiple neu input nhieu file -->
+                  <input type="file" class="form-control" id="img" name="img" multiple>
                   <br>
                   (NOTE: Image must .jpg .png, dung luong khong duoc > 100kb)
             </div>
-            <div class="img">
-              <img src="./image/1.jpg" alt="image">
-              <img src="./image/2.jpg" alt="image">
-              <img src="./image/3.jpg" alt="image">
-              <img src="./image/4.jpg" alt="image">
-              <img src="./image/6.jpg" alt="image">
-              <img src="./image/1.jpg" alt="image">
-              <img src="./image/2.jpg" alt="image">
-              <img src="./image/3.jpg" alt="image">
-            </div>
+            <div class="img" id="show_img"></div>
             
             <!-- Modal footer -->
             <div class="modal-footer">
@@ -98,11 +90,41 @@
 <script>
     $(document).ready(function(){
 
-      $('img').click(function(name_img){
-        var t1 =$(this).attr('src').split('/')[2];
-        $('#path').text(t1);
-        $('#myModal').modal('toggle');//close modal khi click vao chon anh co san  
+      //auto upload image
+      let folder_upload = "uploads";
+      $.ajax({
+          url : folder_upload,
+          success: function (data) {
+              $(data).find("a").attr("href", function (i, val) {
+                  if( val.match(/\.(jpe?g|png|gif)$/) ) { 
+                      $("#show_img").append( "<img src='"+ folder_upload + val +"'>" );
+                  } 
+              });
+          }
       });
+      let folder_img = "image";
+      $.ajax({
+          url : folder_img,
+          success: function (data) {
+              $(data).find("a").attr("href", function (i, val) {
+                  if( val.match(/\.(jpe?g|png|gif)$/) ) { 
+                      $("#show_img").append( "<img src='"+ folder_img + val +"'>" );
+                  } 
+              });
+          }
+      });
+      //0
+      $('body').on('click','img',function(){
+          var t1 =$(this).attr('src').split('/')[2];
+          $('#path').text(t1);
+          $('#myModal').modal('toggle');//close modal khi click vao chon anh co san  
+      });
+      // $("img").click(function(){
+      //   alert('ok')
+      //   var t1 =$(this).attr('src').split('/')[2];
+      //   $('#path').text(t1);
+      //   $('#myModal').modal('toggle');//close modal khi click vao chon anh co san  
+      // });
 
         $('#registor').on('submit', function(e){
 

@@ -6,6 +6,14 @@
 //app.use('/',express.static('public')); khi sửng dụng những folder con của public 
 //thì không được ./public/image/.1.jpg mà phải ./image/.1.jpg
 //$('#myModal').modal('toggle');//close modal khi click vao chon anh co san
+//show multiple image form folder
+//npm install serve-index
+//khai bao var serveIndex = require('serve-index')
+//const path1 = require('path');
+// Allow assets directory listings
+// const serveIndex = require('serve-index'); 
+// app.use('/uploads',express.static('uploads'),serveIndex(path1.join(__dirname, '/uploads/uploads')));
+
 
 const express = require('express');
 const app = express();
@@ -21,6 +29,14 @@ app.get('/', (req, res)=>{
 // cấu hình đường dẫn tĩnh
 app.use('/',express.static('public'));
 
+///////////////////////////
+const path1 = require('path');
+// Allow assets directory listings
+const serveIndex = require('serve-index'); 
+app.use('/uploads',express.static('uploads'),serveIndex(path1.join(__dirname, '/uploads/uploads')));
+app.use('/image',express.static('public'),serveIndex(path1.join(__dirname, '/public/image')));
+//////////////////////////////
+
 app.post('/register',(req,res)=>{
     let name = req.body.name;
     let pass = req.body.pass;
@@ -35,7 +51,7 @@ const multer = require('multer');
 const storage = multer.diskStorage({
     //duong dan luu file
     destination: (req,file,cb)=>{
-        cb(null,'uploads');
+        cb(null,'uploads/uploads');
     },
     //kiem tra file
     filename: (req,file,cb)=>{
@@ -52,13 +68,13 @@ const storage = multer.diskStorage({
         else
         {
             cb(null, Date.now() + '-' + file.originalname);
+            path += file.originalname +' ';//them cho nay de lay ten file, hoac req.files de lay chi tiet tat ca file
         }
-        path = file.originalname;
     }
 });
 var limits = {fileSize: 1024*50}; // hieu la 200kb
 // Gọi ra sử dụng
-const uploads = multer ({storage: storage, limits: limits}).single('img');
+const uploads = multer ({storage: storage, limits: limits}).array('img');//array neu iput nhieu file, con 1 file thi single
 app.post('/upload_file',(req,res)=>{
     uploads(req, res, function(err){
         if(path=='') 
