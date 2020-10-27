@@ -27,6 +27,7 @@
 //npm install cookie-parser
 //html: c1: tạo button kết hợp thẻ <a herf="/logout"></a> và thuộc tính app.get
 //c2: sủ dụng type:get  window.location.href = '/login'; //chuyen trang và app.get thêm res.send() 
+//so sánh password: var a = bcrypt.compareSync(password,hash) a sẽ trả về true nếu đúng và ngược lại
 
 const express = require('express');
 const app = express();
@@ -127,10 +128,10 @@ app.get('/logout', (req, res)=>{
 //     res.send();
 // });
 
-var kq=0;
-var tmp_data=[''];
-var check =0;
 app.post('/view-login',(req,res)=>{
+    var kq=0;
+    var tmp_data=[''];
+    var check =0;
     if (fs.existsSync('./account.txt'))
     {
         let tmp = fs.readFileSync(__dirname + '/account.txt').toString().split("\n");
@@ -156,16 +157,20 @@ app.post('/view-login',(req,res)=>{
     let name = req.body.name;
     let pass = req.body.pass;
     const password = pass;
-    const hash = tmp_data[1].split(',')[1];
-    console.log(tmp_data[1].split(',')[1])
-    bcrypt.compare(password,hash,(err,result)=>{
-        console.log(result);
-        if(result)
+    if(tmp_data!=[''])
+    {
+        for(i in tmp_data)
         {
-            check = 3;
-        }
-    });
-    console.log(check)
+            if(tmp_data[i].split(',')[0]==name)
+            {
+                const hash = tmp_data[i].split(',')[1];
+                var a = bcrypt.compareSync(password,hash)
+                if(a==true){
+                    check=1;
+                }
+            }
+        } 
+    }
     if(check==1)
     {
         kq= 1;
