@@ -1,3 +1,4 @@
+//npm install bcrypt
 //1. tạo chuỗi hash
 //2. so khớp
 

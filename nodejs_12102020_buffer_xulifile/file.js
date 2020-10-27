@@ -12,7 +12,7 @@ var fs = require('fs');
 
     // var nd = fs.readFileSync(__dirname + '/abc.txt');//nen su dung
     //     console.log(nd);
-
+    //let tmp = fs.readFileSync('account.txt').toString().split("\n");
 //2.tao file
 
     //fs.appendFile

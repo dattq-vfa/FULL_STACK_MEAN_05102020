@@ -31,6 +31,9 @@
 const express = require('express');
 const app = express();
 
+//đọc file
+var fs = require('fs');
+const bcrypt = require('bcrypt');//ma hoa password
 // gọi ra sử dụng
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -125,15 +128,49 @@ app.get('/logout', (req, res)=>{
 // });
 
 var kq=0;
+var tmp_data=[''];
+var check =0;
 app.post('/view-login',(req,res)=>{
+    if (fs.existsSync('./account.txt'))
+    {
+        let tmp = fs.readFileSync(__dirname + '/account.txt').toString().split("\n");
+        for(i in tmp)
+        {
+            
+            if(tmp[i]!='')
+            {
+                if(tmp_data.indexOf(tmp[i].split(' ')[0]+','+tmp[i].split(' ')[1])== -1)
+                {
+                    tmp_data.push(tmp[i].split(' ')[0]+','+tmp[i].split(' ')[1]);
+                }
+            }
+        }               
+    }
+    else
+    {
+        fs.appendFile('account.txt','',function(err){
+            if(err)throw err;
+            console.log('saved');
+        });
+    }
     let name = req.body.name;
     let pass = req.body.pass;
-    if(name=='Dat'&&pass=='ok')
+    const password = pass;
+    const hash = tmp_data[1].split(',')[1];
+    console.log(tmp_data[1].split(',')[1])
+    bcrypt.compare(password,hash,(err,result)=>{
+        console.log(result);
+        if(result)
+        {
+            check = 3;
+        }
+    });
+    console.log(check)
+    if(check==1)
     {
         kq= 1;
         //tao cookie
         res.cookie('name','nguyen van B',{maxAge: 1000*20});
-        
     }
     else
     {
@@ -142,6 +179,53 @@ app.post('/view-login',(req,res)=>{
     res.send({kq:kq});
     // res.send(`<b>Name: ${name}</b>` + `<br><b>Password: ${pass}<b><br>`);
     
+});
+//them create
+app.get('/create-account',(req,res)=>{
+    res.sendFile(__dirname + '/account.html');
+});
+
+app.post('/ACCOUNT',(req,res)=>{
+    let check=0;
+    let err='';
+    let name = req.body.name;
+    let pass = req.body.pass;
+    let phone = req.body.PHONE;
+    let email = req.body.Email; 
+    pattern_name = /^([a-z]|[A-Z]){1,}$/
+    subject_name = name;
+    pattern_pass = /\S/ //không có khoảng trắng
+    subject_pass = pass;
+    pattern_phone = /^0(3[2-9]|56|58|59|70|7[6-9]|8[1-6]|8[8-9]|)[0-9]{7}$/ //3[2-9] thay cho 32-39
+    subject_phone = phone;
+    pattern_email = /^([a-z,A-Z,0-9]){3,}\@gmail.(com|co)$/
+    subject_email = email;
+    (pattern_name.test(subject_name)) ? check=check+1: err+='Please enter name again!'+'\n';
+    (pattern_pass.test(subject_pass)) ? check=check+1: err+='Please enter pass again!'+'\n';
+    (pattern_phone.test(subject_phone)) ? check=check+1: err+='Please enter phone again!'+'\n';
+    (pattern_email.test(subject_email)) ? check=check+1: err+='Please enter email again!';
+    if(check==4)
+    {
+        const saltRounds= 10; //độ mã hóa
+        const password = pass;
+        bcrypt.genSalt(saltRounds,(err, salt)=>{
+            bcrypt.hash(password, salt,(err,hash)=>{
+                fs.appendFile('account.txt',name +' '+hash+' '+phone+' '+email+'\n',function(err){ //them noi dung moi vao file
+                    if(err)throw err;
+                        console.log('saved');
+                    }); 
+                });
+        });
+        res.send('ok');
+        check=0;
+    }
+    else
+    {
+        res.send(err);
+        err=''
+        check=0;
+    }
+
 });
 
 app.listen(3000, ()=>{ console.log('Server enabled') });

@@ -57,9 +57,10 @@
 //gchsgdh@gmail.com(or co)
 // pattern =/^([0-9]|[a-z]|[A-Z]){3,}\@gmail.(com|co)$/;//{3,} từ 3 ký tự đến vô hạn
 //hoặc
-pattern =/^\w{3,}\@gmail.(com|co)$/;
-subject='xvd@gmail.com'; //du lieu nguoi dung
-
+// pattern =/^\w{3,}\@gmail.(com|co)$/;
+// subject='xvd@gmail.com'; //du lieu nguoi dung
+pattern = /^[0-9]{4}[ -.][0-9]{3}[ -.][0-9]{3,4}/
+subject ='0000.000.000';
 if(pattern.test(subject))
 {
     console.log('true');

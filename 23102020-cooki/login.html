@@ -23,13 +23,13 @@
       <input type="password" class="form-control" id="pwd" name="password">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
+    <button id="create_account" class="btn btn-info"><a href="create-account" style="text-decoration: none;">Create account</a></button>
     <div id="result"></div>
   </form>
 </div>
 <script>
     $(document).ready(function(){
         $('#login').on('submit', function(e){
-
             e.preventDefault();
             var name = $('#usr').val();
             var pass = $('#pwd').val();
