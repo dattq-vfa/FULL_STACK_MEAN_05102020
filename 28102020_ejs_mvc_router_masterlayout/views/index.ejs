@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejs</title>
+    <style>
+        div{
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .header{
+            color: blue;
+        }
+        .main{
+            color: red;
+        }
+        .footer{
+            color:rgb(88, 88, 12);
+        }
+    </style>
+</head>
+<body>
+    <!-- <h1><%//=main%> ejs</h1> -->
+    <!-- <h2><%//-bang%></h2>
+    <h3><%//=obj.name%></h3>
+    <ul>
+
+        forEach //E hoa  -->
+
+        <!-- <%//mang.forEach(function(e){%> 
+            <li></li>//%=e.name%></li>
+        <%//});%>
+    </ul> -->
+
+    <%- include('partials/header')%>
+    <div class="main"><%-include(main);%></div>
+    <%- include('partials/footer')%>
+    
+
+</body>
+</html>
