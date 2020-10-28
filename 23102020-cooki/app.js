@@ -199,7 +199,7 @@ app.post('/ACCOUNT',(req,res)=>{
     let email = req.body.Email; 
     pattern_name = /^([a-z]|[A-Z]){1,}$/
     subject_name = name;
-    pattern_pass = /\S/ //không có khoảng trắng
+    pattern_pass = /^(?=.*[!@#$%^&*.])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[0-9a-zA-Z!@#$%^&*.]{8,}$/ //?=.*[a-z] giống if sau đó thực hiện [0-9a-zA-Z!@#$%^&*.]{8,}
     subject_pass = pass;
     pattern_phone = /^0(3[2-9]|56|58|59|70|7[6-9]|8[1-6]|8[8-9]|)[0-9]{7}$/ //3[2-9] thay cho 32-39
     subject_phone = phone;
@@ -223,9 +223,11 @@ app.post('/ACCOUNT',(req,res)=>{
         });
         res.send('ok');
         check=0;
+        console.log(pass)
     }
     else
     {
+        console.log(pass)
         res.send(err);
         err=''
         check=0;
