@@ -1,30 +1,29 @@
-
 const express = require('express');
 const router = express.Router();
 
-
-
 router.get('/',(req,res)=>{
-
     main = 'partials/main_home';
-    // bang = '<span style="color:red">hello</span>';
+    // bang = '<span style="color:red">hello_bang</span>';
     // obj = {
-    //     name: 'nguyen van k',
+    //     name: 'teo',
     //     age: 18
-    // };
+    // }
     // mang = [
     //     {
-    //         name: 'nguyen a'
+    //         name: 'vu',
+    //         age: 1
     //     },
     //     {
-    //         name: 'nguyen b'
+    //         name: 'as',
+    //         age: 2
     //     },
     //     {
-    //         name: 'nguyen c'
+    //         name: 'kk',
+    //         age: 3
     //     }
     // ]
-    
-    res.render('index',{main: main});//{main: main, bang:bang}
-
+    // res.send('xin chao');
+    res.render('index',{main:main});//gui du lieu khi su dung ejs
 });
-module.exports=router;
+
+module.exports = router; //xuat ra du lieu de su dung

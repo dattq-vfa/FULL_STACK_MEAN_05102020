@@ -1,9 +1,6 @@
-
-
-const { forEach } = require('async');
-const express = require('express');
-const app = express();
-
+//npm install ejs
+//model la xu ly rieng database
+//controllers la noi xu li chinh nhung cai app
 //ejs
 //1. là 1 view engine
 //2. view engine la
@@ -16,13 +13,15 @@ const app = express();
 //  3.viết các câu lệnh: <% câu lệnh %>
 //  4.gọi đến 1 file: <%- include(name); %>
 
+
+const express = require('express');
+const app = express();
+
 //goi ejs ra su dung
-app.set('view engine','ejs');
+app.set('view engine', 'ejs'); // mặc định trỏ vào folder views (nhớ tạo folder views), truong hop nay su dung ejs con rat nhieu view engine nua
 
-const index_controllers = require('./controllers/index_controllers.js')
-
+//goi den file su dung
+const index_controllers = require('./controllers/index_controllers.js');
 app.use('/',index_controllers);
-
-
 
 app.listen(3000,()=>{console.log('on server');});
