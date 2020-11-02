@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <title>chat online</title>
+</head>
+<body>
+    <h1></h1>
+    <label for="content">Nhap noi dung</label>
+    <input type="text" id="content">
+    <input type="button" id="ketqua" value="ket qua">
+
+    <script>
+        var socket = io(); //phai goi cai nay ra su dung
+        $(document).ready(function(){
+            $('#ketqua').on('click',function(){
+                //lay gia tri 
+                content = $('#content').val();
+                //gui qua server
+                socket.emit('client-onlypeople', content);
+            });
+        });
+        socket.on('server-onlypeople',function(result){
+            $('h1').text(result);
+        });
+
+    </script>
+
+</body>
+</html>

@@ -29,24 +29,6 @@ app.get('/createToken',(req,res)=>{
 
 });
 
-//2.Sử dụng token
-
-// app.get('/useToken',(req,res)=>{
-//     token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibmd1eWVuIHZhbiBBIiwidXNlcm5hbWUiOiJuZ3V5ZW52YW5BIiwiZW1haWwiOiJraWVudHJ1bWhvZG85OTdAZ21haWwuY29tIiwiaWF0IjoxNjA0MTEzMDA3LCJleHAiOjE2MDQxMTMwNjd9.qU8o5FnvHfGpj-KBOFKvrP9sgXWv6n4fkPmQwjm72U0';
-//     serectKey = '@#$%';
-//     jwt.verify(token,serectKey,(err,data)=>{
-//         if(err)
-//         {
-//             res.send({err: err});
-//         }
-//         else
-//         {
-//             res.send(data);
-//         }
-//     });
-// });
-
-
 app.get('/',(req,res)=>{
     res.send('hello')
 });
