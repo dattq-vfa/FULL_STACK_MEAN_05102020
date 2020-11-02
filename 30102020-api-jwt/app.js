@@ -26,7 +26,6 @@ app.get('/createToken',(req,res)=>{
     serectKey = '@#$%';
     token = jwt.sign(payload,serectKey, {expiresIn: 60}); //expiresIn: 60 thoi gian 60s
     res.end(token);
-
 });
 
 app.get('/',(req,res)=>{
