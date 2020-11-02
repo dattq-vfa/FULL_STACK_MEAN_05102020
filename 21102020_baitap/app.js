@@ -1,4 +1,4 @@
-
+//npm install multer
 //multer :  sử dụng để tải lên các tệp
 //upload file
 //CKEDITOR:  là một trình soạn thảo văn bản HTML

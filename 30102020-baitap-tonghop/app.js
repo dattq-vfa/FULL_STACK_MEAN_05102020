@@ -16,6 +16,9 @@
 
 const express = require('express');
 const app = express();
+// gọi ra sử dụng
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
 // cấu hình đường dẫn tĩnh
 app.use('/',express.static('public'));
 //goi ejs ra su dung

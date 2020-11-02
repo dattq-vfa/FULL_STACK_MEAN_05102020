@@ -1,8 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/product',(req,res)=>{
-    main = 'products/main'; //method nay la master layout 
+router.get('/Add_product',(req,res)=>{
+    main = 'products/Add_product'; //method nay la master layout 
+    res.render('index',{main: main});
+});
+
+router.get('/Edit_product',(req,res)=>{
+    main = 'products/Edit_product'; //method nay la master layout 
+    res.render('index',{main: main});
+});
+
+router.get('/Main_product',(req,res)=>{
+    main = 'products/Main_product'; //method nay la master layout 
     res.render('index',{main: main});
 });
 

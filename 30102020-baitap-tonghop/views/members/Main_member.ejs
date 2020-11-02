@@ -1,0 +1,172 @@
+<div class="right">
+
+<head>
+  <style>
+    img:hover{
+      background-color: red;
+    }
+    img{
+      padding: 4px;
+      width: 90px;
+      height: 55px;
+    }
+    .img{
+      margin: auto;
+      width: 80%;
+      display:flex;
+      flex-wrap: wrap;
+      border: solid 2px black;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Form Registor</h2>
+  <form id="registor">
+    <div class="form-group">
+      <label for="usr">Name:</label>
+      <input type="text" class="form-control" id="usr" name="username">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" name="password">
+    </div>
+    <div class="form-group">
+        <label for="content">content:</label>
+        <textarea name="content" id="content" cols="30" rows="10"></textarea>
+    </div>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Upload image</button>
+    <span id="path"></span>
+    <input type="hidden" name="name_file" id="name_file">
+    <br><br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <div id="result"></div>
+
+  </form>
+</div>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Upload Image</h4>
+        <span type="button" class="close" data-dismiss="modal">&times;</span>
+      </div>
+      <!-- //enctype="multipart/form-data" very important -->
+      <form id="upload_img" method="POST" enctype="multipart/form-data">
+          <!-- Modal body -->   
+          <div class="modal-body">
+              <div class="form-group">
+                  <label for="img">Image:</label>
+                  <!-- multiple neu input nhieu file -->
+                  <input type="file" class="form-control" id="img" name="img" multiple>
+                  <br>
+                  (NOTE: Image must .jpg .png, dung luong khong duoc > 100kb)
+            </div>
+            <div class="img" id="show_img"></div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Upload</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+      </form> 
+             
+    </div>
+  </div>
+</div>
+<br>
+<script>
+    $(document).ready(function(){
+
+      //auto upload image
+      let folder_upload = "uploads";
+      $.ajax({
+          url : folder_upload,
+          success: function (data) {
+              $(data).find("a").attr("href", function (i, val) {
+                  if( val.match(/\.(jpe?g|png|gif)$/) ) { 
+                      $("#show_img").append( "<img src='"+ folder_upload + val +"'>" );
+                  } 
+              });
+          }
+      });
+      let folder_img = "image";
+      $.ajax({
+          url : folder_img,
+          success: function (data) {
+              $(data).find("a").attr("href", function (i, val) {
+                  if( val.match(/\.(jpe?g|png|gif)$/) ) { 
+                      $("#show_img").append( "<img src='"+ folder_img + val +"'>" );
+                  } 
+              });
+          }
+      });
+      //0
+      $('body').on('click','img',function(){
+          var t1 =$(this).attr('src').split('/')[2];
+          $('#path').text(t1);
+          $('#myModal').modal('toggle');//close modal khi click vao chon anh co san  
+      });
+      // $("img").click(function(){
+      //   alert('ok')
+      //   var t1 =$(this).attr('src').split('/')[2];
+      //   $('#path').text(t1);
+      //   $('#myModal').modal('toggle');//close modal khi click vao chon anh co san  
+      // });
+
+        $('#registor').on('submit', function(e){
+
+            e.preventDefault();
+            var name = $('#usr').val();
+            var pass = $('#pwd').val();
+            var content = CKEDITOR.instances['content'].getData();
+
+            $.ajax({
+
+                url:'register',
+                type:'POST',
+                data: { 'name': name, 'pass': pass, 'content': content },
+                success: function (result) {
+                    $('#result').html(result);
+                }
+
+            });
+
+            return false;
+        });
+        $('#upload_img').on('submit', function(e){
+
+            e.preventDefault();
+            $.ajax({
+                    url: 'upload_file',
+                    type: 'POST',
+                    data: new FormData(this),// phai co this
+
+                    // cài đặt 3 cái cần để upload file
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+
+                    success: function (result) {
+                        console.log(result);
+                        $('#path').text(result);
+                        $('#name_file').val(result);
+                    }
+                });
+                return false;
+        });
+        
+    })
+</script>
+<!-- //ckeditor -->
+<script src="ckeditor/ckeditor.js"></script>
+<script>CKEDITOR.replace('content');</script>
+
+</body>
+</html>
+
+</div>
