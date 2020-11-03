@@ -9,22 +9,15 @@
     <title>chat online</title>
 </head>
 <body>
-
+    <h1 id="a"></h1>
     <form id="chat">
         <h1 class="name_chat">name chat</h1>
-        <div class="content_msg">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum quod hic dolor inventore sit, exercitationem eos maxime vitae, rem qui adipisci ducimus pariatur cupiditate nam assumenda. Minus tempora odit quos.
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. In magni molestias ex nobis perspiciatis? Dolores amet repellendus accusamus quam laborum. Odio ratione veritatis sequi odit vitae voluptatibus voluptates ea ut.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum et, quasi impedit sequi harum incidunt, odit amet vitae nam temporibus inventore illo itaque non consequuntur quos, asperiores sunt dolore earum!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur nisi sunt illo magnam corrupti esse totam sed ut quis itaque ipsum aspernatur saepe iure maiores omnis, blanditiis sequi dolorum ipsam.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut expedita facere ducimus voluptatum vel reprehenderit eaque voluptas culpa voluptatibus nam quidem omnis iusto incidunt rerum, sit non eveniet laboriosam? Incidunt!
-
-        </div>
+        <div class="content_msg" id="content_msg"></div>
         <div class="footer">
             <label for="content">Nhap</label>
             <input type="text" id="content">
-            <button class="send_chat">Send</button>
-
+            <input type="button" id="ketqua" class="send_chat" value="Send">
+            <!-- <button type="submit" class="send_chat">Send</button> -->
         </div>
         
     </form>
@@ -39,7 +32,10 @@
             });
         });
         socket.on('server-onlypeople',function(result){
-            $('h1').text(result);
+            $('#content_msg').append(
+                '<div class="adjust_"><p class="adjust_msg">' + result + '</p></div>'
+            );
+            $('#content').val('');
         });
 
     </script>
