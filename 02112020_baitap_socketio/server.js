@@ -11,13 +11,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const jwt = require('jsonwebtoken');
 var fs = require('fs');
-
+app.use('/', express.static('public'));
+app.use('/server_client', express.static('public'));
 //kiem tra ket noi
 io.on('connection',function(socket){
     console.log('Online:'+ socket.id);
 
-    //server nhan du lieu
-    socket.on('client-onlypeople',function(data){
+        //server nhan du lieu
+        socket.on('client-onlypeople',function(data){
         //4.1 gui du lieu di
         //socket.emit('server-onlypeople', data);
 
@@ -35,7 +36,7 @@ io.on('connection',function(socket){
 });
 
 
-app.get('/login',(req,res)=>{
+app.get('/',(req,res)=>{
     res.sendFile(__dirname + '/login.html');
 });
 
@@ -70,7 +71,7 @@ app.post('/ACCOUNT',(req,res)=>{
             email: email
         }
         serectKey = '@#$%';
-        token = jwt.sign(payload,serectKey, {expiresIn: 60}); //expiresIn: 60 thoi gian 60s
+        token = jwt.sign(payload,serectKey, {expiresIn: 60000}); //expiresIn: 60 thoi gian 60s
         //res.end(token);
         //res.send(token);
         fs.appendFile('account.txt',name +' '+pass+' '+email+' '+token+'\n',function(err){ //them noi dung moi vao file
@@ -90,9 +91,9 @@ app.post('/ACCOUNT',(req,res)=>{
     }
 });
 
+var token = '';
 app.post('/client',(req,res)=>{
-    var tmp_data=[''];
-    let token = '';
+    var tmp_data=[];
     if (fs.existsSync('./account.txt'))
     {
         let tmp = fs.readFileSync(__dirname + '/account.txt').toString().split("\n");
@@ -103,10 +104,10 @@ app.post('/client',(req,res)=>{
             {
                 if(tmp_data.indexOf(tmp[i].split(' ')[0]+','+tmp[i].split(' ')[1]+','+tmp[i].split(' ')[3])== -1)
                 {
-                    tmp_data.push(tmp[i].split(' ')[0]+','+tmp[i].split(' ')[1]+','+tmp[i].split(' ')[3]);
+                    tmp_data.push(tmp[i].split(' ')[0]+' '+tmp[i].split(' ')[1]+' '+tmp[i].split(' ')[3]);
                 }
             }
-        }               
+        }         
     }
     else
     {
@@ -117,13 +118,14 @@ app.post('/client',(req,res)=>{
     }
     let name = req.body.name;
     let pass = req.body.pass;
-    if(tmp_data!=[''])
+    console.log('gui qua' + name +'  '+pass);
+    if(tmp_data!=[])
     {
         for(i in tmp_data)
         {
-            if(tmp_data[i].split(',')[0]==name && tmp_data[i].split(',')[1]==pass)
+            if(tmp_data[i].split(' ')[0]==name && tmp_data[i].split(' ')[1]==pass)
             {
-                token = tmp_data[i].split(',')[3];
+                token = tmp_data[i].split(' ')[2];
                 break;
             }
         } 
@@ -132,11 +134,23 @@ app.post('/client',(req,res)=>{
     jwt.verify(token,serectKey,(err,data)=>{//jwt.verify(token,serectKey,(err,data)=>{
         if(err)
         {
-            res.redirect('/login');
+            res.send('err');
         }
         else
         {
-            token='';
+            res.send('ok');
+        }
+    });
+});
+app.get('/server_client',(req,res)=>{
+    serectKey = '@#$%';
+    jwt.verify(token,serectKey,(err,data)=>{//jwt.verify(token,serectKey,(err,data)=>{
+        if(err)
+        {
+            res.redirect('/')
+        }
+        else
+        {
             res.sendFile(__dirname + '/client.html');
         }
     });

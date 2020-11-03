@@ -5,14 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="style.css">
     <title>chat online</title>
 </head>
 <body>
-    <h1></h1>
-    <label for="content">Nhap noi dung</label>
-    <input type="text" id="content">
-    <input type="button" id="ketqua" value="ket qua">
 
+    <form id="chat">
+        <h1 class="name_chat">name chat</h1>
+        <div class="content_msg">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum quod hic dolor inventore sit, exercitationem eos maxime vitae, rem qui adipisci ducimus pariatur cupiditate nam assumenda. Minus tempora odit quos.
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. In magni molestias ex nobis perspiciatis? Dolores amet repellendus accusamus quam laborum. Odio ratione veritatis sequi odit vitae voluptatibus voluptates ea ut.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum et, quasi impedit sequi harum incidunt, odit amet vitae nam temporibus inventore illo itaque non consequuntur quos, asperiores sunt dolore earum!
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur nisi sunt illo magnam corrupti esse totam sed ut quis itaque ipsum aspernatur saepe iure maiores omnis, blanditiis sequi dolorum ipsam.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut expedita facere ducimus voluptatum vel reprehenderit eaque voluptas culpa voluptatibus nam quidem omnis iusto incidunt rerum, sit non eveniet laboriosam? Incidunt!
+
+        </div>
+        <div class="footer">
+            <label for="content">Nhap</label>
+            <input type="text" id="content">
+            <button class="send_chat">Send</button>
+
+        </div>
+        
+    </form>
     <script>
         var socket = io(); //phai goi cai nay ra su dung
         $(document).ready(function(){

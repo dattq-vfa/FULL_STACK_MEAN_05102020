@@ -1,0 +1,55 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 25px;
+}
+
+body{
+    background-color: gray;
+}
+#chat{
+    position: fixed;
+    right: 10%;
+    bottom: 0;
+    width: 25%;
+    height: 70%;
+    background-color:  rgb(80, 83, 85);
+}
+.name_chat{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: rgb(40, 43, 46);
+}
+.footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    line-height: 40px;
+    /* text-align: center; */
+    background-color: rgb(40, 43, 46);
+}
+.content_msg{
+    position: absolute;
+    top: 40px;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #eee;
+    overflow: auto;
+    background-color: yellow;
+}
+#content{
+    height: 30px;
+    width: 80px;
+    background-color: white;
+}
+
