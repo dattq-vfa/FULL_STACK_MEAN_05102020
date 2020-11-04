@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Create account</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script> cnd tren internet -->
+</head>
+<body>
+<div class="container">
+  <h2>Create account</h2>
+  <form id="create-account">
+    <div class="form-group">
+      <label for="usr">Name:</label>
+      <input type="text" class="form-control" id="usr" name="username">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" name="password">
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="text" class="form-control" id="phone" name="phone">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email">
+      </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <div id="result"></div>
+  </form>
+</div>
+<script>
+    $(document).ready(function(){
+        $('#create-account').on('submit', function(e){
+            e.preventDefault();
+            var name = $('#usr').val();
+            var pass = $('#pwd').val();
+            var PHONE = $('#phone').val();
+            var Email = $('#email').val();
+            // var content = CKEDITOR.instances['content'].getData();
+            $.ajax({
+                url:'ACCOUNT',
+                type:'POST',
+                data: { 'name': name, 'pass': pass , 'PHONE':PHONE, 'Email': Email },
+                success: function (result) {
+                  console.log(result);
+                    // $('#result').html(result);
+                    if(result=='ok'){
+                        alert('Success');
+                        window.location.href = '/'; //chuyen trang
+                    }
+                    else{
+                        alert(result);
+                    }
+                }
+
+            });
+
+            return false;
+        });
+    })
+</script>
+
+</body>
+</html>
