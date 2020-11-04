@@ -9,6 +9,9 @@
     <title>chat online</title>
 </head>
 <body>
+    <div class="member">
+        <h1 style="background-color: green; text-align: center;">Online</h1>
+    </div>
     <h1 id="a"></h1>
     <form id="chat">
         <h1 class="name_chat">name chat</h1>
@@ -23,7 +26,7 @@
     </form>
     <script>
         var socket = io(); //phai goi cai nay ra su dung
-        $(document).ready(function(){
+        $(document).ready(function(kq){
             $('#ketqua').on('click',function(){
                 //lay gia tri 
                 content = $('#content').val();
@@ -32,10 +35,27 @@
             });
         });
         socket.on('server-onlypeople',function(result){
-            $('#content_msg').append(
-                '<div class="adjust_"><p class="adjust_msg">' + result + '</p></div>'
+            console.log(result.id +' '+result.user)
+            id_member =$('#member').text();
+            console.log(id_member)
+            if(result.id != id_member)
+            {
+                $('#content_msg').append(
+                '<div class="line_other"><span class="adjust_other">' + result.user + '</span></div>'
             );
+            }
+            else
+            {
+                $('#content_msg').append(
+                '<div class="line_user"><span class="adjust_user">' + result.user + '</span></div>'
+            );
+            }
+            
             $('#content').val('');
+            $('#content_msg').animate({scrollTop:10000},800);//update scroll
+        });
+        socket.on('people',function(result){
+            $('.member').append('<div id="member">' + result + '</div>')
         });
 
     </script>

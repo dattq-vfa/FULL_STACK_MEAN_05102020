@@ -5,6 +5,10 @@ const server = require('http').Server(app);///////dung de chat
 
 const io = require('socket.io')(server);//server la bien o tren khai bao
 
+//html
+// $('#content_msg').animate({scrollTop:10000},800);//update scroll
+//word-break: break-all; tu dong xuong dong
+
 // gọi ra sử dụng
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,12 +17,14 @@ const jwt = require('jsonwebtoken');
 var fs = require('fs');
 app.use('/', express.static('public'));
 app.use('/server_client', express.static('public'));
+
+
 //kiem tra ket noi
 io.on('connection',function(socket){
     console.log('Online:'+ socket.id);
-
-        //server nhan du lieu
-        socket.on('client-onlypeople',function(data){
+    socket.emit('people', socket.id);
+    //server nhan du lieu
+    socket.on('client-onlypeople',function(data){
         //4.1 gui du lieu di
         //socket.emit('server-onlypeople', data);
 
@@ -26,7 +32,8 @@ io.on('connection',function(socket){
         //socket.broadcast.emit('server-onlypeople', data);
 
         //  4.4: gửi cho tất cả
-        io.sockets.emit('server-onlypeople',data);
+        //io.sockets.emit('name',data);
+        io.sockets.emit('server-onlypeople',({user:data, id:socket.id}));
     });
 
     //kiem tra thoat
@@ -71,7 +78,7 @@ app.post('/ACCOUNT',(req,res)=>{
             email: email
         }
         serectKey = '@#$%';
-        token = jwt.sign(payload,serectKey, {expiresIn: 60000}); //expiresIn: 60 thoi gian 60s
+        token = jwt.sign(payload,serectKey, {expiresIn: 600000}); //expiresIn: 60 thoi gian 60s
         //res.end(token);
         //res.send(token);
         fs.appendFile('account.txt',name +' '+pass+' '+email+' '+token+'\n',function(err){ //them noi dung moi vao file
@@ -92,6 +99,7 @@ app.post('/ACCOUNT',(req,res)=>{
 });
 
 var token = '';
+var check ='';
 app.post('/client',(req,res)=>{
     var tmp_data=[];
     if (fs.existsSync('./account.txt'))
@@ -138,22 +146,32 @@ app.post('/client',(req,res)=>{
         }
         else
         {
+            check= 'ok';
             res.send('ok');
         }
     });
 });
 app.get('/server_client',(req,res)=>{
-    serectKey = '@#$%';
-    jwt.verify(token,serectKey,(err,data)=>{//jwt.verify(token,serectKey,(err,data)=>{
-        if(err)
-        {
-            res.redirect('/')
-        }
-        else
-        {
-            res.sendFile(__dirname + '/client.html');
-        }
-    });
+    if(check=='ok')
+    {
+        serectKey = '@#$%';
+        jwt.verify(token,serectKey,(err,data)=>{//jwt.verify(token,serectKey,(err,data)=>{
+            if(err)
+            {
+                res.redirect('/');
+            }
+            else
+            {
+                res.sendFile(__dirname + '/client.html');
+            }
+        });
+    }
+    else
+    {
+        res.redirect('/');
+    }
+    
 });
+
 
 server.listen(3000,()=>{console.log('bat server')})

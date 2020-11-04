@@ -57,17 +57,54 @@ body{
 .send_chat{
     background-color: rgb(93, 248, 62);
 }
-.adjust_{
-    display: flex;
-    flex-direction: row-reverse;
-    padding: 10px;
-    margin-bottom: 5px;
 
+.line_other{
+    padding: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: flex-start;
 }
-.adjust_msg{
-    padding: 10px;
+.adjust_other{
+    font-size: 20px;
+    max-width: 130px;
+    padding: 5px;
+    background-color: rgb(15, 112, 52);
+    color: white;
+    border-radius: 25px;
+    word-break: break-word;
+    margin-right: 150px;
+    min-width: 50px;
+  
+}
+.line_user{
+    padding: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: flex-end;
+}
+.adjust_user{
+    font-size: 20px;
+    max-width: 130px;
+    padding: 5px;
     background-color: rgb(6, 6, 224);
     color: white;
     border-radius: 25px;
+    word-break: break-word;
+    min-width: 50px;
 
+    
+}
+.member{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 100px;
+    background-color: yellowgreen;
+}
+#member{
+    display: block;
+    padding: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #eee;
 }
