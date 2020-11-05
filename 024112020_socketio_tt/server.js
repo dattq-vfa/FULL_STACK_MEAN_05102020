@@ -19,7 +19,7 @@ app.use('/', express.static('public'));
 app.use('/server_client', express.static('public'));
 
 
-const moment = require('moment');//
+const moment = require('moment');//su dung thoi gian
 var mang_user=[];
 
 //kiem tra ket noi
@@ -32,6 +32,7 @@ io.on('connection',function(socket){
             time: moment().format('YYYY-MM-DD')
         }
         mang_user.push(user_id);
+        socket.emit('id_user', socket.id);
     }
     io.sockets.emit('user_online',mang_user);
     //server nhan du lieu
@@ -40,7 +41,16 @@ io.on('connection',function(socket){
         //socket.emit('server-onlypeople', data);
         //  4.4: gửi cho tất cả
         //io.sockets.emit('name',data);
-        data_add ={content: data.content,id: data.id, time: moment().format('h:mm a')};
+        const index = mang_user.findIndex(user_id => user_id.socketID == data.id);
+        if(index!=-1)
+        {
+            data_add ={user: mang_user[index].username,content: data.content,id: data.id, time: moment().format('h:mm a')};
+        }
+        else
+        {
+            data_add ={content: data.content,id: data.id, time: moment().format('h:mm a')};
+        }
+        
         io.sockets.emit('receive_message',data_add);
     });
 
@@ -48,7 +58,7 @@ io.on('connection',function(socket){
     socket.on('disconnect',()=>{
 
         const index = mang_user.findIndex(user_id => user_id.socketID == socket.id);
-        io.sockets.emit('receive_message',{content: mang_user[index].username +' has left',id: mang_user[index].socketID, time: moment().format('h:mm a')});
+        io.sockets.emit('receive_message',{user: mang_user[index].username,content: mang_user[index].username +' has left',id: mang_user[index].socketID, time: moment().format('h:mm a')});
         if(index != -1)
         {
             mang_user.splice(index,1)[0];
@@ -117,6 +127,7 @@ var token = '';
 var check ='';
 var user ='';
 app.post('/client',(req,res)=>{
+    token='';
     var tmp_data=[];
     if (fs.existsSync('./account.txt'))
     {
@@ -169,26 +180,19 @@ app.post('/client',(req,res)=>{
     });
 });
 app.get('/server_client',(req,res)=>{
-    if(check=='ok')
-    {
-        serectKey = '@#$%';
-        jwt.verify(token,serectKey,(err,data)=>{//jwt.verify(token,serectKey,(err,data)=>{
-            if(err)
-            {
-                res.redirect('/');
-            }
-            else
-            {
-                
-                res.sendFile(__dirname + '/client.html');
-            }
-        });
-    }
-    else
-    {
-        res.redirect('/');
-    }
+    serectKey = '@#$%';
+    jwt.verify(token,serectKey,(err,data)=>{//jwt.verify(token,serectKey,(err,data)=>{
+        if(err)
+        {
+            token='';
+            res.redirect('/');
+        }
+        else
+        {
+            res.sendFile(__dirname + '/client.html');
+        }
+    });
 });
 
 
-server.listen(4000,()=>{console.log('bat server')})
+server.listen(3000,()=>{console.log('bat server')})
