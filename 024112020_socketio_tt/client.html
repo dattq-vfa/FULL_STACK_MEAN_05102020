@@ -3,16 +3,11 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
-
 <link rel="stylesheet" href="style.css">
 <!------ Include the above in your HEAD tag ---------->
-
-
 <html>
 <head>
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"/>
-
 </head>
 <body>
 <div class="container">
@@ -22,7 +17,7 @@
         <div class="inbox_people">
           <div class="headind_srch">
             <div class="recent_heading">
-              <h4>Recent</h4>
+              <h4>Online</h4>
             </div>
             <div class="srch_bar">
               <div class="stylish-input-group">
@@ -48,19 +43,14 @@
         <div class="mesgs">
           <div class="msg_history">
             <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://jabbareh.files.wordpress.com/2011/12/personal-information.png" alt="sunil"> </div>
               <div class="received_msg">
                 <div class="received_withd_msg">
-                  <p>Test which is a new approach to have all
-                    solutions</p>
-                  <span class="time_date"> 11:01 AM    |    June 9</span></div>
+                  <span class="time_date"></span></div>
               </div>
             </div>
             <div class="outgoing_msg">
               <div class="sent_msg">
-                <p>Test which is a new approach to have all
-                  solutions</p>
-                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
+                <span class="time_date"></span> </div>
             </div>
           </div>
           <div class="type_msg">
@@ -71,41 +61,77 @@
           </div>
         </div>
       </div>
-      
-      
     </div></div>
 
     <script>
+        var GETID='';
         var socket = io(); //phai goi cai nay ra su dung
-        $(document).ready(function(kq){
-            console.log(kq)
+        $(document).ready(function(){
+            GETID = socket.id; //id của trang
             $('.msg_send_btn').on('click',function(){
                 //lay gia tri 
                 content = $('.write_msg').val();
+               var data_msg = {content: content, id: GETID}
+               console.log(data_msg)
                 //gui qua server
-                socket.emit('client-onlypeople', content);
+                socket.emit('send_message', data_msg);
+                $('.write_msg').val('');
             });
         });
-        socket.on('server-onlypeople',function(result){
-                $('.msg_history').append(
+        socket.on('receive_message',function(result){
+          console.log(result.id +' ' + GETID)
+          if(result.id == GETID)
+          {
+            $('.msg_history').append(
                     '<div class="outgoing_msg">'+
                         '<div class="sent_msg">'+
-                    '<p>'+result+'</p>'+
-                    '<span class="time_date"> 11:01 AM    |    June 9</span> </div></div>');
-        });
-        socket.on('user',function(result){
-            console.log(result + ' 111111');
-            $('.inbox_chat').append(
-                '<div class="chat_list active_chat">'+
-              '<div class="chat_people">'+
-                '<div class="chat_img"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Crystal_personal.svg/1024px-Crystal_personal.svg.png" alt="sunil"> </div>'+
-                '<div class="chat_ib">'+
-                  '<h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>'+
-                  '<p>'+result+'</p>'+
-                '</div>'+
+                    '<p>' + result.content + '</p>'+
+                    '<span class="time_date">'+result.time+'</span> </div></div>'
+                  );
+          }
+          else
+          {
+            $('.msg_history').append(
+              '<div class="incoming_msg_img"> <img src="https://jabbareh.files.wordpress.com/2011/12/personal-information.png" alt="sunil"> </div>'+
+              '<div class="received_msg">'+
+                '<div class="received_withd_msg">'+
+                  '<p>' + result.content + '</p>'+
+                  '<span class="time_date">'+result.time+'</span></div>'+
               '</div>'
             );
+          }
+                
         });
+        socket.on('user_online',function(result){
+              $('.inbox_chat').empty();//xóa những element trước đó
+              for(i in result)
+              {
+                if(result[i].username!='')
+                {
+                  $('.inbox_chat').append(
+                        '<div class="chat_list active_chat">'+
+                          '<div class="chat_people">'+
+                          '<div class="chat_img"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Crystal_personal.svg/1024px-Crystal_personal.svg.png" alt="sunil"> </div>'+
+                          '<div class="chat_ib">'+
+                            '<h5>'+result[i].username+'<span class="chat_date">'+result[i].time+'</span></h5>'+
+                            '<p>'+result[i].username+'</p>'+
+                          '</div>'+
+                        '</div>'
+                  );
+                  console.log(result[i].username);
+                }
+                else
+                {
+                  window.location.href = '/'; //chuyen trang
+                }      
+            }
+            console.log(GETID + '  getid')
+        });
+        socket.on('send_data',(data)=>{
+            ID= data.id;
+            console.log('my id: ' +ID);
+        });
+        
     </script>
     </body>
     </html>

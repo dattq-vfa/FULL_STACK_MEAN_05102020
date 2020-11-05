@@ -18,39 +18,42 @@ var fs = require('fs');
 app.use('/', express.static('public'));
 app.use('/server_client', express.static('public'));
 
+
+const moment = require('moment');//
 var mang_user=[];
 
 //kiem tra ket noi
 io.on('connection',function(socket){
-    if(mang_user.indexOf(user)==-1)
+    if(mang_user.indexOf(user) == -1)
     {
-        mang_user.push(user);
-    }
-    for(i in mang_user)
-    {
-        if(mang_user[i]!='')
-        {
-            io.sockets.emit('user',mang_user[i]);
+        const user_id = {
+            socketID :  socket.id,
+            username : user,
+            time: moment().format('YYYY-MM-DD')
         }
-        
+        mang_user.push(user_id);
     }
-    
+    io.sockets.emit('user_online',mang_user);
     //server nhan du lieu
-    socket.on('client-onlypeople',function(data){
+    socket.on('send_message',function(data){
         //4.1 gui du lieu di
         //socket.emit('server-onlypeople', data);
-
-        //4.3 : gửi qua cho nhiều người khác, trừ client gửi
-        //socket.broadcast.emit('server-onlypeople', data);
-
         //  4.4: gửi cho tất cả
         //io.sockets.emit('name',data);
-        io.sockets.emit('server-onlypeople',data);
+        data_add ={content: data.content,id: data.id, time: moment().format('h:mm a')};
+        io.sockets.emit('receive_message',data_add);
     });
 
     //kiem tra thoat
     socket.on('disconnect',()=>{
-        console.log(socket.id + ' da thoat')
+
+        const index = mang_user.findIndex(user_id => user_id.socketID == socket.id);
+        io.sockets.emit('receive_message',{content: mang_user[index].username +' has left',id: mang_user[index].socketID, time: moment().format('h:mm a')});
+        if(index != -1)
+        {
+            mang_user.splice(index,1)[0];
+        }
+        io.sockets.emit('user_online',mang_user);
     });
 });
 
@@ -188,4 +191,4 @@ app.get('/server_client',(req,res)=>{
 });
 
 
-server.listen(3000,()=>{console.log('bat server')})
+server.listen(4000,()=>{console.log('bat server')})
