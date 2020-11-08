@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="http://localhost:3000/">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Logo</a>
+
+    <!-- Links -->
+    <ul class="navbar-nav">
+      <!-- Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          Admin
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Tài khoản</a>
+          <a class="dropdown-item" href="#">Đăng xuất</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<br>
+<main>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="list-group">
+          <%
+              list=[
+                      {
+                        link:'/',
+                        name: 'Bảng điều khiển'
+                      },
+                      {
+                        link:'/category',
+                        name: 'Danh mục'
+                      },
+                      {
+                        link:'/product',
+                        name: 'Sản phẩm'
+                      },
+                      {
+                        link:'/user',
+                        name: 'Thành viên'
+                      },
+                  ]
+              list.forEach(v=>{
+                active='';
+                if(v.link==link)
+                {
+                  active = 'active';
+                }
+          %>
+          <a href="<%=v.link%>" class="list-group-item list-group-item-action <%=active%>">
+            <%=v.name%>
+          </a>
+          <% }); %>
+        </div>
+      </div>
+      <div class="col-sm-9">
+        <%- include(main) %>
+      </div>
+    </div>
+  </div>
+</main>
+
+</div>
+</body>
+</html>
