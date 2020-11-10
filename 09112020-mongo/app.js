@@ -28,7 +28,6 @@
 
 //goi mongoose
 const mongoose = require('mongoose');
-const { stringify } = require('querystring');
 mongoose.connect('mongodb+srv://quangdattruong:Dat1@quang@cluster0.zdhkx.mongodb.net/Mean05102020?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -43,23 +42,23 @@ mongoose.connect('mongodb+srv://quangdattruong:Dat1@quang@cluster0.zdhkx.mongodb
  const Schema = mongoose.Schema;
 
  const UserSchema = new Schema({
-     name: String,
-     username: {
-         type: String,
-         unique: true //primarykey
-     },
-     password: String,
-     email: {
-        type: String,
-        unique: true
-     },
-     phone: {
-        type: String,
-        unique: true
-     },
-     address: String,
-     Role: Array,
-     status: Boolean,
+        name: String,
+        username: {
+            type: String,
+            unique: true //primarykey
+        },
+        password: String,
+        email: {
+            type: String,
+            unique: true
+        },
+        phone: {
+            type: String,
+            unique: true
+        },
+        address: String,
+        Role: Array,
+        status: Boolean,
 
  });
  //tao collection

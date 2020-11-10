@@ -21,7 +21,8 @@ app.use('/server_client', express.static('public'));
 
 const moment = require('moment');//su dung thoi gian
 var mang_user=[];
-
+let room = '';
+var room_name=[]
 //kiem tra ket noi
 io.on('connection',function(socket){
     if(mang_user.indexOf(user) == -1)
@@ -29,12 +30,24 @@ io.on('connection',function(socket){
         const user_id = {
             socketID :  socket.id,
             username : user,
+            room: room,
             time: moment().format('YYYY-MM-DD')
         }
         mang_user.push(user_id);
         socket.emit('id_user', socket.id);
     }
     io.sockets.emit('user_online',mang_user);
+    //create and chat group
+    
+    socket.on('create_room',function(data){
+        if(room_name.indexOf(data)==-1)
+        {
+            room_name.push(data);
+        }
+        io.sockets.emit('created_room',room_name);
+    });
+    io.sockets.emit('created_room',room_name);
+
     //server nhan du lieu
     socket.on('send_message',function(data){
         //4.1 gui du lieu di

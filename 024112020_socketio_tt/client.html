@@ -11,7 +11,27 @@
 </head>
 <body>
 <div class="container">
-<h3 class=" text-center">Messaging <button class="logout"><a class="btn_logout" href="/">Logout</a></button></h3>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-7">
+        <label for="room">Room Name: </label>
+        <input type="text" id="room">
+        <button type="button" class="btn btn-primary" id="create_room">Create</button>
+        <select name="room_name" id="room_name">
+          <option value="room1">room1</option>
+        </select>
+        <button type="button" class="btn btn-info" id="choose">choose</button>
+      </div>
+    <div class="col-2">
+      <h3 class=" text-center">Messaging</h3>
+    </div>
+    <div class="col-3">
+      <button class="logout">
+        <a class="btn_logout" href="/">Logout</a></button>
+    </div>
+    </div>
+  </div>
+
 <div class="messaging">
       <div class="inbox_msg">
         <div class="inbox_people">
@@ -62,7 +82,6 @@
         </div>
       </div>
     </div></div>
-
     <script>
         var GETID='';
         var socket = io(); //phai goi cai nay ra su dung
@@ -70,6 +89,26 @@
           GETID = result;
         });
         $(document).ready(function(){
+            $('#create_room').on('click',function(){
+            room = $('#room').val();
+            socket.emit('create_room',room);
+            });
+            socket.on('created_room',function(data){
+              $('#room_name').empty();//xóa những element trước đó
+              for(i in data)
+              {
+                $("#room_name").append(`<option value=${data[i]}>${data[i]}</option>`);
+              }
+            });
+            $('#choose').on('click',function(){
+            room_name = $('#room_name').val();
+            alert(`Choose group ${room_name} success!`);
+            console.log(room_name)
+            });
+
+
+
+
             $('.msg_send_btn').on('click',function(){
               console.log('html : ' + GETID)
                 //lay gia tri 
