@@ -24,7 +24,6 @@ const Schema = mongoose.Schema;
             default: false
         }
  });
-
  //tao collection
  module.exports = mongoose.model('user', UserSchema);
 
