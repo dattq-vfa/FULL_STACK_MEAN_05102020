@@ -48,12 +48,19 @@ io.on('connection',function(socket){
     });
     io.sockets.emit('created_room',room_name);
 
+    //ghep ten phong vs id
+    socket.on('room_name',function(data){
+        // const index = mang_user.findIndex(user_id => user_id.socketID == data.ID);
+        // if(index!=-1)
+        // {
+        //     mang_user[index].room = data.room_name;
+        // }
+        socket.join(data.room_name);
+
+    });
+
     //server nhan du lieu
     socket.on('send_message',function(data){
-        //4.1 gui du lieu di
-        //socket.emit('server-onlypeople', data);
-        //  4.4: gửi cho tất cả
-        //io.sockets.emit('name',data);
         const index = mang_user.findIndex(user_id => user_id.socketID == data.id);
         if(index!=-1)
         {
@@ -63,8 +70,7 @@ io.on('connection',function(socket){
         {
             data_add ={content: data.content,id: data.id, time: moment().format('h:mm a')};
         }
-        
-        io.sockets.emit('receive_message',data_add);
+        io.to(data.room).emit('receive_message', data_add);
     });
 
     //kiem tra thoat
