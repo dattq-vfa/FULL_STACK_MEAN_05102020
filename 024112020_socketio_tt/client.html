@@ -92,37 +92,37 @@
             $('#create_room').on('click',function(){
             room = $('#room').val();
             socket.emit('create_room',room);
+            $('#room').val('');
             });
             socket.on('created_room',function(data){
               $('#room_name').empty();//xóa những element trước đó
               for(i in data)
               {
-                $("#room_name").append(`<option value=${data[i]}>${data[i]}</option>`);
+                if(data[i]!='')
+                {
+                  $("#room_name").append(`<option value=${data[i]}>${data[i]}</option>`);
+                }
               }
             });
             $('#choose').on('click',function(){
             room_name = $('#room_name').val();
-            alert(`Choose group ${room_name} success!`);
-            console.log(room_name)
+            socket.emit('room_name',{room_name: room_name, ID: GETID});
+            alert(`Choose group ${room_name}  ${GETID} success!`);
             });
 
 
 
 
             $('.msg_send_btn').on('click',function(){
-              console.log('html : ' + GETID)
                 //lay gia tri 
                 content = $('.write_msg').val();
-               var data_msg = {content: content, id: GETID}
-               console.log('id1: '+GETID )
+                var data_msg = {content: content, id: GETID, room: room_name};
                 //gui qua server
                 socket.emit('send_message', data_msg);
                 $('.write_msg').val('');
             });
         });
         socket.on('receive_message',function(result){
-          console.log(result.id +' ' + GETID)
-          console.log('id2: '+GETID )
           if(result.id == GETID)
           {
             $('.msg_history').append(
@@ -149,7 +149,6 @@
               $('.inbox_chat').empty();//xóa những element trước đó
               for(i in result)
               {
-                console.log('tets id : ' + result[i].socketID)
                 if(result[i].username!='')
                 {
                   $('.inbox_chat').append(
