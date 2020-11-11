@@ -58,10 +58,155 @@ mongoose.connect('mongodb+srv://quangdattruong:Dat1@quang@cluster0.zdhkx.mongodb
         },
         address: String,
         Role: Array,
-        status: Boolean,
+        status: {
+            type: Boolean,
+            default: false
+        }
 
  });
+
  //tao collection
- mongoose.model('user', UserSchema);
+ const UserModel = mongoose.model('user', UserSchema);
 
+// thêm document
+    //1.save
+    //2.create
 
+    //1.save
+        // obj = new UserModel({
+        //     name: 'nguyen van B',
+        //     username: 'nguyenvanB',
+        //     password: '123456',
+        //     email: 'nguyenvanb@gmail.com',
+        //     phone: '913898928391',
+        //     address: 'TPHCM',
+        //     Role: [1,2],
+        // });
+        // obj.save((err,data)=>{
+        //     if(err)
+        //     {
+        //         console.log(err);
+        //     }
+        //     else
+        //     {
+        //         console.log(data);
+        //     }
+        // });
+
+    //2.create
+        // object = [
+        //     {
+        //         name: 'nguyen van H',
+        //         username: 'nguyenvanhH',
+        //         password: '123456232',
+        //         email:'nguyenvansH@gmail.c0m',
+        //         phone: '189389121212'
+        //     },
+        //     {
+        //         name: 'nguyen van L',
+        //         username: 'nguyenvanL',
+        //         password: '123456',
+        //         email:'nguyenvanL@gmail.c0m',
+        //         phone: '189323281122129'
+        //     },
+
+        // ]
+        // UserModel.create(object,(err,data)=>{
+        //     if(err)
+        //     {
+        //         console.log(err);
+        //     }
+        //     else
+        //     {
+        //         console.log(data);
+        //     }
+        // });
+
+//3.Cập nhật
+    // obj = {
+    //         name: 'nguyen van BBBBBBBBBBBBBBB',
+    //         username: 'nguyenvanB',
+    //         password: '123456',
+    //         email: 'nguyenvanb@gmail.com',
+    //         phone: '913898928391',
+    //         address: 'TPHCM',
+    //         Role: [1,2],
+    //         };
+    // UserModel.updateMany({ _id:'5fabe564e31ee70a0cb1dabc'},obj,(err,data)=>{
+    //         if(err)
+    //         {
+    //             console.log(err);
+    //         }
+    //         else
+    //         {
+    //             console.log(data);
+    //         }
+    // });
+
+//4.xoa du lieu
+    // UserModel.findByIdAndDelete({ _id:'5fabe564e31ee70a0cb1dabc'},(err,data)=>{
+    //         if(err)
+    //         {
+    //             console.log(err);
+    //         }
+    //         else
+    //         {
+    //             console.log(data);
+    //         }
+    // });
+
+//Lay du lieu
+    // UserModel.find()
+    // .exec((err,data)=>{
+    //         if(err)
+    //         {
+    //             console.log(err);
+    //         }
+    //         else
+    //         {
+    //             console.log(data);
+    //         }
+    // });
+
+// tim kiem
+    // UserModel.find({name: {'$regex': 'nguyen van'} })
+    // .exec((err,data)=>{
+    //         if(err)
+    //         {
+    //             console.log(err);
+    //         }
+    //         else
+    //         {
+    //             console.log(data);
+    //         }
+    // });
+
+//sap xep, A->Z : 1(Ko can them sort), Z->A : -1
+    // UserModel.find()
+    // .sort({name: -1}) 
+    // .exec((err,data)=>{
+    //         if(err)
+    //         {
+    //             console.log(err);
+    //         }
+    //         else
+    //         {
+    //             console.log(data);
+    //         }
+    // });
+
+//phan trang, skip limit hoat dong giong nhu substring
+    // UserModel.find()////sort truoc phan trang sau
+    // .skip(2)//vi tri bat dau
+    // .limit(1)//gioi han so document hien thi ra
+    // .sort({name: -1}) 
+    // .exec((err,data)=>{
+    //         if(err)
+    //         {
+    //             console.log(err);
+    //         }
+    //         else
+    //         {
+    //             console.log(data);
+    //         }
+    // });
