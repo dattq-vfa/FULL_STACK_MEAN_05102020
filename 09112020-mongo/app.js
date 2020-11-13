@@ -29,7 +29,7 @@
 //goi mongoose
 const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://quangdattruong:Dat1@quang@cluster0.zdhkx.mongodb.net/Mean05102020?retryWrites=true&w=majority', {
-    useNewUrlParser: true,
+    useNewUrlParser: true,//Tránh cảnh báo "trình phân tích chuỗi URL hiện tại không được dùng nữa"
     useUnifiedTopology: true,
     useCreateIndex: true
 })// nho nhap pass va ten 
@@ -38,7 +38,7 @@ mongoose.connect('mongodb+srv://quangdattruong:Dat1@quang@cluster0.zdhkx.mongodb
 //that bai bao loi
 .catch((err)=>(console.log(err)));
 
-//tao schema
+//tao schema các trường giống  như format từng cột database
  const Schema = mongoose.Schema;
 
  const UserSchema = new Schema({
@@ -68,7 +68,9 @@ mongoose.connect('mongodb+srv://quangdattruong:Dat1@quang@cluster0.zdhkx.mongodb
  //tao collection
  const UserModel = mongoose.model('user', UserSchema);
 
-// thêm document
+ 
+
+// thêm document, giống như thêm data vào bảng
     //1.save
     //2.create
 
@@ -124,15 +126,9 @@ mongoose.connect('mongodb+srv://quangdattruong:Dat1@quang@cluster0.zdhkx.mongodb
 
 //3.Cập nhật
     // obj = {
-    //         name: 'nguyen van BBBBBBBBBBBBBBB',
-    //         username: 'nguyenvanB',
-    //         password: '123456',
-    //         email: 'nguyenvanb@gmail.com',
-    //         phone: '913898928391',
-    //         address: 'TPHCM',
-    //         Role: [1,2],
+    //         name: 'nguyen van C',
     //         };
-    // UserModel.updateMany({ _id:'5fabe564e31ee70a0cb1dabc'},obj,(err,data)=>{
+    // UserModel.updateMany({ _id:'5fabe6b8cbf82217d4b2e8ed'},obj,(err,data)=>{
     //         if(err)
     //         {
     //             console.log(err);
@@ -165,6 +161,7 @@ mongoose.connect('mongodb+srv://quangdattruong:Dat1@quang@cluster0.zdhkx.mongodb
     //         else
     //         {
     //             console.log(data);
+                
     //         }
     // });
 

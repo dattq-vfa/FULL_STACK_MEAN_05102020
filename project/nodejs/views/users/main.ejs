@@ -3,12 +3,12 @@
     <div class="row">
         <div class="col-md-6">
             <p>
-                <a href="product/add" class="btn btn-primary">Thêm</a>
+                <a href="user/add" class="btn btn-primary">Thêm</a>
             </p>
         </div>
         <div class="col-md-6">
-            <form class="form-inline justify-content-end" >
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <form class="form-inline justify-content-end" id="btn_search">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" id="text_search">
                 <button class="btn btn-success" type="submit">Search</button>
               </form>
         </div>
@@ -21,32 +21,8 @@
           <th>Email</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="table">
           <%- str%>
-        <tr>
-          <td>John</td>
-          <td>Doe</td>
-          <td>
-              <a href="product/edit/1" class="btn btn-info">Sửa</a>
-              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Mary</td>
-          <td>Moe</td>
-          <td>
-            <a href="product/edit/1" class="btn btn-info">Sửa</a>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
-        </td>
-        </tr>
-        <tr>
-          <td>July</td>
-          <td>Dooley</td>
-          <td>
-            <a href="product/edit/1" class="btn btn-info">Sửa</a>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
-        </td>
-        </tr>
       </tbody>
     </table>
     <ul class="pagination">
@@ -56,7 +32,7 @@
         <li class="page-item"><a class="page-link" href="#">3</a></li>
         <li class="page-item"><a class="page-link" href="#">Next</a></li>
       </ul>
-  </div>
+</div>
 
   <!-- The Modal -->
 <div class="modal" id="myModal">
@@ -79,6 +55,38 @@
             <button type="button" class="btn btn-danger">Xóa ngay</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">Thoát</button>
         </div>
-  
       </div>
     </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('#btn_search').on('submit', function(e){
+      e.preventDefault();
+      text_search = $('#text_search').val();
+      $.ajax({
+          url:'search_data',
+          type:'POST',
+          data: { 'text_search': text_search},
+          success: function (result) {
+            $('#table').empty();
+            console.log(result);
+            let search_data =''
+            result.forEach((v)=>{
+              search_data += `<tr>
+                        <td>`+v.name+`</td>
+                        <td>`+v.username+`</td>
+                        <td>
+                            <a href="product/edit/1" class="btn btn-info">Sửa</a>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
+                        </td>
+                    </tr>`
+            });
+            $('#table').append(search_data)
+          }
+      });
+
+      return false;
+});
+  });
+</script>

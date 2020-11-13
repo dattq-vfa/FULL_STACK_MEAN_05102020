@@ -1,20 +1,57 @@
 <div class="container">
-    <h2>Thêm sản phẩm</h2>
-    <form >
-        <div class="form-group">
-          <label for="email">Email address:</label>
-          <input type="email" class="form-control" placeholder="Enter email" id="email">
+    <h2>Thêm tài khoản</h2>
+    <form id="create-account">
+      <div class="form-group">
+        <label for="usr">Name:</label>
+        <input type="text" class="form-control" id="usr" name="user">
+      </div>
+      <div class="form-group">
+        <label for="usrname">User Name:</label>
+        <input type="text" class="form-control" id="usrname" name="username">
+      </div>
+      <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" id="pwd" name="password">
+      </div>
+      <div class="form-group">
+          <label for="phone">Phone:</label>
+          <input type="text" class="form-control" id="phone" name="phone">
         </div>
         <div class="form-group">
-          <label for="pwd">Password:</label>
-          <input type="password" class="form-control" placeholder="Enter password" id="pwd">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email">
         </div>
-        <div class="form-group form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox"> Remember me
-          </label>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="product" class="btn btn-danger">Thoát</a>
-      </form>
+      <button type="submit" class="btn btn-primary">Create</button>
+      <div id="result"></div>
+    </form>
 </div>
+
+<script>
+  $(document).ready(function(){
+      $('#create-account').on('submit', function(e){
+          e.preventDefault();
+          var name = $('#usr').val();
+          var username = $('#usrname').val();
+          var pass = $('#pwd').val();
+          var PHONE = $('#phone').val();
+          var Email = $('#email').val();
+          console.log(name+' '+username);
+          $.ajax({
+              url:'ACCOUNT',
+              type:'POST',
+              data: { 'name': name,'username': username, 'pass': pass , 'PHONE':PHONE, 'Email': Email },
+              success: function (result) {
+                console.log(result);
+                  if(result=='ok'){
+                      alert('Success');
+                      // window.location.href = '/'; //chuyen trang
+                  }
+                  else{
+                      alert(result);
+                  }
+              }
+          });
+          return false;
+      });
+  })
+</script>
