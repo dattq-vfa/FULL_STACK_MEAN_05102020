@@ -4,7 +4,9 @@
         <div class="col-md-6">
             <p>
                 <a href="user/add" class="btn btn-primary">Thêm</a>
+                <button class="btn btn-warning" id="list_delete">List deleted</button>
             </p>
+            
         </div>
         <div class="col-md-6">
             <form class="form-inline justify-content-end" id="btn_search">
@@ -35,30 +37,6 @@
 </div>
 
   <!-- The Modal -->
-<div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-  
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Thông báo</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-  
-        <!-- Modal body -->
-        <div class="modal-body">
-          Bạn có muốn xóa không?
-        </div>
-  
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger">Xóa ngay</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Thoát</button>
-        </div>
-      </div>
-    </div>
-</div>
-
 <script>
   $(document).ready(function(){
     $('#btn_search').on('submit', function(e){
@@ -70,23 +48,57 @@
           data: { 'text_search': text_search},
           success: function (result) {
             $('#table').empty();
-            console.log(result);
             let search_data =''
             result.forEach((v)=>{
-              search_data += `<tr>
+              search_data += `<tr id="`+v._id+`">
                         <td>`+v.name+`</td>
                         <td>`+v.username+`</td>
                         <td>
                             <a href="product/edit/1" class="btn btn-info">Sửa</a>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal`+v._id+`">Xóa</button>
                         </td>
                     </tr>`
             });
             $('#table').append(search_data)
           }
       });
-
       return false;
-});
   });
+  $('#list_delete').click(function(e){
+    e.preventDefault();
+    $.ajax({
+          url:'list_delete',
+          type:'POST',
+          success: function (result) {
+            $('#table').empty();
+            $('#table').append(result);
+          }
+      });
+      return false;
+  });
+});
+
+function delete_data (id){
+  $.ajax({
+          url:'update_status',
+          type:'POST',
+          data: {id: id},
+          success: function (result) {
+            alert(result);
+            $('#'+id).remove();
+          }
+  });
+}
+function delete_database (id){
+  $.ajax({
+          url:'delete_database',
+          type:'POST',
+          data: {id: id},
+          success: function (result) {
+            alert(result);
+            $('#'+id).remove();
+          }
+  });
+}
+    
 </script>

@@ -10,6 +10,7 @@ router.get('/user',(req,res)=>{
     link = req.originalUrl;
     main = 'users/main'; //method nay la master layout 
     UserModel.find()
+    .sort({name: -1})
     .exec((err,data)=>{
             if(err)
             {
@@ -19,14 +20,67 @@ router.get('/user',(req,res)=>{
             {
                 str='';
                 data.forEach((v)=>{
-                    str += `<tr>
-                    <td>`+v.name+`</td>
-                    <td>`+v.username+`</td>
-                    <td>
-                        <a href="product/edit/1" class="btn btn-info">Sửa</a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Xóa</button>
-                    </td>
-                  </tr>`
+                    if(v.status==false)
+                    {
+                        str += `<tr id="`+v._id+`">
+                                    <td>`+v.name+`</td>
+                                    <td>`+v.username+`</td>
+                                    <td>
+                                        <a href="product/edit/1" class="btn btn-info">Sửa</a>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal`+v._id+`">Xóa</button>
+                                    </td>
+                                </tr>`
+                        str += `<div class="modal" id="myModal`+v._id+`">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                    
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Thông báo</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                    
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            Bạn có muốn xóa `+v.name+` không?
+                                        </div>
+                                    
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="delete_data('`+v._id+`')">Xóa ngay</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Thoát</button>
+                                        </div>
+                                    
+                                        </div>
+                                    </div>
+                                </div>`
+                    }
+                    else {
+                        str += `<div class="modal" id="myModal`+v._id+`">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                    
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Thông báo</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                    
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            Bạn có muốn xóa `+v.name+` không?
+                                        </div>
+                                    
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="delete_database('`+v._id+`')">Xóa ngay</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Thoát</button>
+                                        </div>
+                                    
+                                        </div>
+                                    </div>
+                                </div>`
+                    }
                 });
                 //goi view
                 res.render('index',{main: main, link: link, str: str});
@@ -36,10 +90,40 @@ router.get('/user',(req,res)=>{
 });
 
 router.get('/user/add',(req,res)=>{
+    link = '/user'
     main = 'users/add'; //method nay la master layout 
     res.render('index',{main: main});
 });
 
+router.post('/list_delete',(req,res)=>{
+    link = req.originalUrl;
+    main = 'users/main'; //method nay la master layout 
+    UserModel.find()
+    .exec((err,data)=>{
+            if(err)
+            {
+                console.log(err);
+            }
+            else
+            {
+                str='';
+                data.forEach((v)=>{
+                    if(v.status==true)
+                    {
+                        str += `<tr id="`+v._id+`">
+                                    <td>`+v.name+`</td>
+                                    <td>`+v.username+`</td>
+                                    <td>
+                                        <a href="product/edit/1" class="btn btn-info">Sửa</a>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal`+v._id+`">Xóa</button>
+                                    </td>
+                                </tr>`
+                    }
+                });
+                res.send(str);
+            }
+    });
+});
 router.post('/search_data',(req,res)=>{
     data_search = req.body.text_search;
     if(data_search!='')
@@ -55,7 +139,39 @@ router.post('/search_data',(req,res)=>{
                     res.send(data);
                 }
         });
+        
     }
+});
+
+router.post('/delete_database',(req,res)=>{
+    id = req.body.id;
+    UserModel.findByIdAndDelete({ _id: id},(err,data)=>{
+            if(err)
+            {
+                console.log(err);
+            }
+            else
+            {
+                console.log(data);
+                res.send('da xoa')
+            }
+    });
+});
+
+router.post('/update_status',(req,res)=>{
+    id = req.body.id;
+    obj =  { status: true };
+    UserModel.updateMany({ _id: id },obj,(err,data)=>{
+            if(err)
+            {
+                console.log(err);
+            }
+            else
+            {
+                console.log(data);
+                res.send('da xoa')
+            }
+    });
 });
 
 router.post('/ACCOUNT',(req,res)=>{
@@ -66,7 +182,6 @@ router.post('/ACCOUNT',(req,res)=>{
     let pass = req.body.pass;
     let phone = req.body.PHONE;
     let email = req.body.Email; 
-    console.log(username)
     pattern_name = /^([a-z]|[A-Z]){1,}$/
     subject_name = name;
     pattern_username = /^([a-z]|[A-Z]){1,}$/
@@ -97,6 +212,7 @@ router.post('/ACCOUNT',(req,res)=>{
             if(err)
             {
                 console.log(err);
+                res.send('err');
             }
             else
             {
