@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script> cnd tren internet -->
+</head>
+<body>
+
+<div class="container">
+  <h2>Login</h2>
+  <form id="login">
+    <div class="form-group">
+      <label for="usr">Name:</label>
+      <input type="text" class="form-control" id="usr" name="username">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" name="password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" id="create"><a href="create_account" style="color: white; text-decoration: none;">Create Account</a></button>
+    <div id="result"></div>
+
+  </form>
+</div>
+<script>
+    $(document).ready(function(){
+        $('#login').on('submit', function(e){
+            e.preventDefault();
+            var name = $('#usr').val();
+            var pass = $('#pwd').val();
+            $.ajax({
+                url:'login',
+                type:'POST',
+                data: { 'name': name, 'pass': pass },
+                success: function (result) {
+                  if(result=='ok')
+                  {
+                      alert('ok')
+                    //window.location.href = '/user'
+                  }
+                  else 
+                  {
+                   alert(result);
+                  }
+                }
+            });
+
+            return false;
+        });
+    })
+</script>
+</body>
+</html>

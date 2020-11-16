@@ -1,28 +1,27 @@
 <div class="container">
-    <h2>Thêm tài khoản</h2>
-    <form id="create-account">
+    <h2>Chinh sua thanh vien</h2>
+    <form id="Change-account">
       <div class="form-group">
         <label for="usr">Name:</label>
-        <input type="text" class="form-control" id="usr" name="user">
+        <input type="text" class="form-control" id="usr" name="user" value="<%=data.name%>">
       </div>
       <div class="form-group">
         <label for="usrname">User Name:</label>
-        <input type="text" class="form-control" id="usrname" name="username">
+        <input type="text" class="form-control" id="usrname" name="username" value="<%=data.username%>">
       </div>
       <div class="form-group">
         <label for="pwd">Password:</label>
-        <input type="password" class="form-control" id="pwd" name="password">
+        <input type="password" class="form-control" id="pwd" name="password" value="<%=data.password%>">
       </div>
       <div class="form-group">
           <label for="phone">Phone:</label>
-          <input type="text" class="form-control" id="phone" name="phone">
+          <input type="text" class="form-control" id="phone" name="phone" value="<%=data.phone%>" disabled>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" name="email">
+          <input type="email" class="form-control" id="email" name="email" value="<%=data.email%>" disabled>
         </div>
-      <button type="submit" class="btn btn-primary">Create</button>
-      <a href="user" class="btn btn-secondary">Back</a>
+      <button type="submit" class="btn btn-primary" >Save</button>
       <div id="result"></div>
     </form>
     <div class="form-group">
@@ -65,22 +64,20 @@
 
 <script>
   $(document).ready(function(){
-      $('#create-account').on('submit', function(e){
+      $('#Change-account').on('submit', function(e){
           e.preventDefault();
           var name = $('#usr').val();
           var username = $('#usrname').val();
           var pass = $('#pwd').val();
           var PHONE = $('#phone').val();
           var Email = $('#email').val();
-          console.log(name+' '+username);
           $.ajax({
-              url:'ACCOUNT',
+              url:'Change_ACCOUNT',
               type:'POST',
-              data: { 'name': name,'username': username, 'pass': pass , 'PHONE':PHONE, 'Email': Email },
+              data: { 'name': name,'username': username, 'password': pass , 'phone':PHONE, 'email': Email, 'id': `<%=data._id%>`},
               success: function (result) {
-                console.log(result);
-                  if(result=='ok'){
-                      alert('Success');
+                  if(result=='Updated'){
+                      alert('Update data success');
                       window.location.href = 'user'; //chuyen trang
                   }
                   else if(result=='err'){

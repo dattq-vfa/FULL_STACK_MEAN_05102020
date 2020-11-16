@@ -4,7 +4,8 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: false }));
 //goi model
-const UserModel = require('../models/users_models')
+const UserModel = require('../models/users_models');
+const TokenModels = require('../models/token_models');
 
 router.get('/user',(req,res)=>{
     link = req.originalUrl;
@@ -26,7 +27,7 @@ router.get('/user',(req,res)=>{
                                     <td>`+v.name+`</td>
                                     <td>`+v.username+`</td>
                                     <td>
-                                        <a href="product/edit/1" class="btn btn-info">Sửa</a>
+                                        <a href="user/edit/`+v._id+`" class="btn btn-info">Sửa</a>
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal`+v._id+`">Xóa</button>
                                     </td>
                                 </tr>`
@@ -187,6 +188,62 @@ router.post('/update_status',(req,res)=>{
                 res.send('da xoa')
             }
     });
+});
+
+router.get('/user/edit/:id',(req,res)=>{
+        link = '/user'
+        main = 'users/edit';
+        UserModel.find({_id : req.params.id})
+        .exec((err,data)=>{
+            console.log(data[0]);
+            res.render('index',{main: main, link: link, data: data[0]});
+
+        });
+});
+
+router.post('/Change_ACCOUNT',(req,res)=>{
+    obj =  { 
+        name: req.body.name,
+        username: req.body.username,
+        password: req.body.password,
+        phone: req.body.phone,
+        email: req.body.email
+     };
+    UserModel.updateMany({ _id: req.body.id },obj,(err,data)=>{
+            if(err)
+            {
+                console.log(err);
+            }
+            else
+            {
+                console.log(data);
+                res.send('Updated')
+            }
+    });
+});
+
+router.get('/view-login',(req,res)=>{
+
+    res.render('users/login');
+
+});
+
+router.post('/login',(req,res)=>{
+    UserModel.find({name: {'$regex': req.body.name} })
+    .exec((err,data)=>{
+            if(err)
+            {
+                res.send('ten khong ton tai');
+            }
+            else
+            {
+                console.log(data);
+                UserModel.find({password: {'$regex': req.body.pass} })
+                .exec((err,data)=>{
+                    (err) ? res.send('sai mat khau'): res.send('ok')
+                });  
+            }
+    });    
 });
 
 router.post('/ACCOUNT',(req,res)=>{

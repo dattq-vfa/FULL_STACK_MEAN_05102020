@@ -55,7 +55,7 @@
                         <td>`+v.name+`</td>
                         <td>`+v.username+`</td>
                         <td>
-                            <a href="product/edit/1" class="btn btn-info">Sửa</a>
+                            <a href="user/edit/`+v._id+`" class="btn btn-info">Sửa</a>
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal`+v._id+`">Xóa</button>
                         </td>
                     </tr>`
@@ -85,7 +85,6 @@ function delete_data (id){
           type:'POST',
           data: {id: id},
           success: function (result) {
-            alert(result);
             $('#'+id).remove();
             location.reload();
           }
@@ -97,7 +96,6 @@ function delete_database (id){
           type:'POST',
           data: {id: id},
           success: function (result) {
-            alert(result);
             $('#'+id).remove();
           }
   });
@@ -109,9 +107,7 @@ function get_data_again (id){
           type:'POST',
           data: {id: id},
           success: function (result) {
-            alert(result);
             $('#'+id).remove();
-
           }
   });
 }
