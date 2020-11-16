@@ -96,8 +96,6 @@ router.get('/user/add',(req,res)=>{
 });
 
 router.post('/list_delete',(req,res)=>{
-    link = req.originalUrl;
-    main = 'users/main'; //method nay la master layout 
     UserModel.find()
     .exec((err,data)=>{
             if(err)
@@ -114,7 +112,7 @@ router.post('/list_delete',(req,res)=>{
                                     <td>`+v.name+`</td>
                                     <td>`+v.username+`</td>
                                     <td>
-                                        <a href="product/edit/1" class="btn btn-info">Sửa</a>
+                                        <button class="btn btn-info" onclick="get_data_again('`+v._id+`')">Restore</button>
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal`+v._id+`">Xóa</button>
                                     </td>
                                 </tr>`
@@ -124,6 +122,23 @@ router.post('/list_delete',(req,res)=>{
             }
     });
 });
+
+router.post('/get_data_again',(req,res)=>{
+    id = req.body.id;
+    obj =  { status: false };
+    UserModel.updateMany({ _id: id },obj,(err,data)=>{
+            if(err)
+            {
+                console.log(err);
+            }
+            else
+            {
+                console.log(data);
+                res.send('get data again')
+            }
+    });
+});
+
 router.post('/search_data',(req,res)=>{
     data_search = req.body.text_search;
     if(data_search!='')

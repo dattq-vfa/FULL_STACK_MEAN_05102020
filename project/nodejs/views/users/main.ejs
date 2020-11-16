@@ -3,6 +3,7 @@
     <div class="row">
         <div class="col-md-6">
             <p>
+              <a href="user" class="btn btn-secondary">Back</a>
                 <a href="user/add" class="btn btn-primary">Thêm</a>
                 <button class="btn btn-warning" id="list_delete">List deleted</button>
             </p>
@@ -86,6 +87,7 @@ function delete_data (id){
           success: function (result) {
             alert(result);
             $('#'+id).remove();
+            location.reload();
           }
   });
 }
@@ -97,6 +99,19 @@ function delete_database (id){
           success: function (result) {
             alert(result);
             $('#'+id).remove();
+          }
+  });
+}
+
+function get_data_again (id){
+  $.ajax({
+          url:'get_data_again',
+          type:'POST',
+          data: {id: id},
+          success: function (result) {
+            alert(result);
+            $('#'+id).remove();
+
           }
   });
 }
