@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
- const UserSchema = new Schema({
+ const Tokenchema = new Schema({
         id_user: mongoose.Schema.Types.ObjectId,
         token: String,
         status: {
@@ -11,6 +11,6 @@ const Schema = mongoose.Schema;
         }
  });
  //tao collection
- module.exports = mongoose.model('token', tokenchema);
+ module.exports = mongoose.model('token', Tokenchema);
 
 

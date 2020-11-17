@@ -3,6 +3,8 @@ const router = express.Router();
 
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: false }));
+//load bcrypt 
+const bcrypt = require('bcrypt');
 //goi model
 const UserModel = require('../models/users_models');
 const TokenModels = require('../models/token_models');
@@ -233,17 +235,36 @@ router.post('/login',(req,res)=>{
     .exec((err,data)=>{
             if(err)
             {
-                res.send('ten khong ton tai');
+                res.send(err);
             }
             else
             {
-                console.log(data);
-                UserModel.find({password: {'$regex': req.body.pass} })
-                .exec((err,data)=>{
-                    (err) ? res.send('sai mat khau'): res.send('ok')
-                });  
+                if(data.length<1)
+                {
+                    res.send('Tên không tồn tại!');
+                }
+                else
+                {
+                    let kq =0;
+
+                    data.forEach((tm)=>{
+                        bcrypt.compare(req.body.pass ,tm.password, (err,result)=>{
+                            if(result)
+                            {
+                                kq+=1;  
+                            } 
+                        });
+                        // check_pass = bcrypt.compareSync(req.body.pass, tm.password);
+                        // if(check_pass)
+                        // {
+                        //     kq=1;
+                        // }
+                    });
+                    console.log(kq);
+                }           
             }
-    });    
+    });
+    
 });
 
 router.post('/ACCOUNT',(req,res)=>{
@@ -254,7 +275,7 @@ router.post('/ACCOUNT',(req,res)=>{
     let pass = req.body.pass;
     let phone = req.body.PHONE;
     let email = req.body.Email; 
-    pattern_name = /^([a-z]|[A-Z]){1,}$/
+    pattern_name = /\w/
     subject_name = name;
     pattern_username = /^([a-z]|[A-Z]){1,}$/
     subject_username = username;
@@ -271,27 +292,36 @@ router.post('/ACCOUNT',(req,res)=>{
     (pattern_email.test(subject_email)) ? check=check+1: err+='Please enter email again!';
     if(check==5)
     {
-        object = [
-            {
-                name: name,
-                username: username,
-                password: pass,
-                email: email,
-                phone: phone
-            }
-        ]
-        UserModel.create(object,(err,data)=>{
-            if(err)
-            {
-                console.log(err);
-                res.send('err');
-            }
-            else
-            {
-                console.log(data);
-                res.send('ok')
-            }
+        //1. tạo chuỗi hash
+        console.log(pass);
+        const saltRounds= 10; //độ mã hóa
+        //1. tạo chuỗi hash
+        bcrypt.genSalt(saltRounds,(err, salt)=>{
+            bcrypt.hash(pass, salt,(err,hash)=>{
+                object = [
+                    {
+                        name: name,
+                        username: username,
+                        password: hash,
+                        email: email,
+                        phone: phone
+                    }
+                ]
+                UserModel.create(object,(err,data)=>{
+                    if(err)
+                    {
+                        console.log(err);
+                        res.send('err');
+                    }
+                    else
+                    {
+                        console.log(data);
+                        res.send('ok')
+                    }
+                });
+            });
         });
+
     }
     else
     {
