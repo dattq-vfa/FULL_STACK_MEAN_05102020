@@ -204,14 +204,35 @@ router.get('/user/edit/:id',(req,res)=>{
 });
 
 router.post('/Change_ACCOUNT',(req,res)=>{
-    obj =  { 
-        name: req.body.name,
-        username: req.body.username,
-        password: req.body.password,
-        phone: req.body.phone,
-        email: req.body.email
-     };
-    UserModel.updateMany({ _id: req.body.id },obj,(err,data)=>{
+    if(req.body.password==''|req.body.password==null)
+    {
+        obj =  { 
+            name: req.body.name,
+            username: req.body.username,
+            phone: req.body.phone,
+            email: req.body.email
+         };
+         update_data();
+    }
+    else
+    {
+        const saltRounds= 10; //độ mã hóa
+        //1. tạo chuỗi hash
+        bcrypt.genSalt(saltRounds,(err, salt)=>{
+            bcrypt.hash(req.body.password, salt,(err,hash)=>{
+                obj =  { 
+                    name: req.body.name,
+                    username: req.body.username,
+                    password: hash,
+                    phone: req.body.phone,
+                    email: req.body.email
+                 };
+                 update_data();
+            });
+        });
+    }
+    function update_data(){
+        UserModel.updateMany({ _id: req.body.id },obj,(err,data)=>{
             if(err)
             {
                 console.log(err);
@@ -221,7 +242,8 @@ router.post('/Change_ACCOUNT',(req,res)=>{
                 console.log(data);
                 res.send('Updated')
             }
-    });
+        });
+    }
 });
 
 router.get('/view-login',(req,res)=>{
@@ -246,21 +268,20 @@ router.post('/login',(req,res)=>{
                 else
                 {
                     let kq =0;
-
                     data.forEach((tm)=>{
-                        bcrypt.compare(req.body.pass ,tm.password, (err,result)=>{
-                            if(result)
-                            {
-                                kq+=1;  
-                            } 
-                        });
-                        // check_pass = bcrypt.compareSync(req.body.pass, tm.password);
-                        // if(check_pass)
-                        // {
-                        //     kq=1;
-                        // }
+                        // bcrypt.compare(req.body.pass ,tm.password, (err,result)=>{
+                        //     if(result)
+                        //     {
+                        //         kq+=1;  
+                        //     } 
+                        // });
+                        check_pass = bcrypt.compareSync(req.body.pass, tm.password);
+                        if(check_pass)
+                        {
+                            kq=1;
+                        }
                     });
-                    console.log(kq);
+                    (kq==1) ? res.send('ok'):res.send('sai mat khau');
                 }           
             }
     });
