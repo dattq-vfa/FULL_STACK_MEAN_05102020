@@ -34,17 +34,17 @@
     $(document).ready(function(){
         $('#login').on('submit', function(e){
             e.preventDefault();
-            var name = $('#usr').val();
-            var pass = $('#pwd').val();
+            var username = $('#usr').val();
+            var password = $('#pwd').val();
             $.ajax({
                 url:'login',
                 type:'POST',
-                data: { 'name': name, 'pass': pass },
+                data: { 'username': username, 'password': password },
                 success: function (result) {
                   if(result=='ok')
                   {
-                      alert('ok')
-                      window.location.href = '/user'
+                    alert('ok');
+                    window.location.href = '/';
                   }
                   else 
                   {

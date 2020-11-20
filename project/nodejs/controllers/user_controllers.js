@@ -7,7 +7,14 @@ router.use(bodyParser.urlencoded({ extended: false }));
 const bcrypt = require('bcrypt');
 //goi model
 const UserModel = require('../models/users_models');
-const TokenModels = require('../models/token_models');
+const TokenModel = require('../models/token_models');
+
+//goi jwt
+const jwt = require('jsonwebtoken');
+//goi localstorage
+var LocalStorage = require('node-localstorage').LocalStorage;
+localStorage = new LocalStorage('./cratch');
+
 
 router.get('/user',(req,res)=>{
     link = req.originalUrl;
@@ -253,7 +260,7 @@ router.get('/view-login',(req,res)=>{
 });
 
 router.post('/login',(req,res)=>{
-    UserModel.find({name: {'$regex': req.body.name} })
+    UserModel.find({username: {'$regex': req.body.username} })
     .exec((err,data)=>{
             if(err)
             {
@@ -267,21 +274,42 @@ router.post('/login',(req,res)=>{
                 }
                 else
                 {
-                    let kq =0;
-                    data.forEach((tm)=>{
-                        // bcrypt.compare(req.body.pass ,tm.password, (err,result)=>{
-                        //     if(result)
-                        //     {
-                        //         kq+=1;  
-                        //     } 
-                        // });
-                        check_pass = bcrypt.compareSync(req.body.pass, tm.password);
-                        if(check_pass)
-                        {
-                            kq=1;
-                        }
-                    });
-                    (kq==1) ? res.send('ok'):res.send('sai mat khau');
+                    check_pass = bcrypt.compareSync(req.body.password, data[0].password);
+                    if(check_pass)
+                    {
+                        console.log('ok')
+                        payload = {
+                                    name: data[0].name,
+                                    username: data[0].username,
+                                    password: data[0].password,
+                                    email: data[0].email,
+                                    phone: data[0].phone
+                                }
+                        serectKey = '@#$%';
+                        token = jwt.sign(payload,serectKey, {expiresIn: 30}); //expiresIn: 120 la thoi gian 120s
+                            obj = [
+                                {
+                                    id_user: data[0]._id,
+                                    token: token
+                                }
+                            ]
+                        TokenModel.create(obj,(err,data_token)=>{
+                            if(err)
+                            {
+                                res.send('err create token');
+                            }
+                            else
+                            {
+                                localStorage.setItem('token',token);
+                                localStorage.setItem('account',(data[0].name).toUpperCase());
+                                res.send('ok');
+                            }
+                        });
+                    } 
+                    else
+                    {
+                        res.send('sai mat khau');
+                    }
                 }           
             }
     });
