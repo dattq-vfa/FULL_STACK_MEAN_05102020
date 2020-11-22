@@ -26,7 +26,13 @@
         </a>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="#">Tài khoản</a>
-          <a class="dropdown-item" href="/view-login">Đăng xuất</a>
+          <a class="dropdown-item" href="/view-login">Đăng xuất
+            <!-- xoa localStorage tai khoan -->
+            <!-- <%
+              //localStorage.removeItem('account')
+              //localStorage.removeItem('token')
+            %> -->
+          </a>
         </div>
       </li>
     </ul>
@@ -78,8 +84,5 @@
 </main>
 
 </div>
-<!-- //ckeditor -->
-<script src="ckeditor/ckeditor.js"></script>
-<script>CKEDITOR.replace('content');</script>
 </body>
 </html>

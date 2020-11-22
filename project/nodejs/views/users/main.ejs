@@ -3,9 +3,10 @@
     <div class="row">
         <div class="col-md-6">
             <p>
-              <a href="user" class="btn btn-secondary">Back</a>
-                <a href="user/add" class="btn btn-primary">Thêm</a>
-                <button class="btn btn-warning" id="list_delete">List deleted</button>
+              <a href="user/1" class="btn btn-secondary">Back</a>
+                <a href="user/add/member" class="btn btn-primary">Thêm</a>
+                <a href="user/member/list_delete" class="btn btn-warning">List deleted</a>
+                <!-- <button class="btn btn-warning" id="list_delete">List deleted</button> -->
             </p>
             
         </div>
@@ -29,11 +30,7 @@
       </tbody>
     </table>
     <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <%-view_totalPage%>
       </ul>
 </div>
 
@@ -65,18 +62,18 @@
       });
       return false;
   });
-  $('#list_delete').click(function(e){
-    e.preventDefault();
-    $.ajax({
-          url:'list_delete',
-          type:'POST',
-          success: function (result) {
-            $('#table').empty();
-            $('#table').append(result);
-          }
-      });
-      return false;
-  });
+  // $('#list_delete').click(function(e){
+  //   e.preventDefault();
+  //   $.ajax({
+  //         url:'list_delete',
+  //         type:'POST',
+  //         success: function (result) {
+  //           $('#table').empty();
+  //           $('#table').append(result);
+  //         }
+  //     });
+  //     return false;
+  // });
 });
 
 function delete_data (id){
