@@ -1,20 +1,96 @@
 <div class="container">
-    <h2>Thêm sản phẩm</h2>
-    <form >
-        <div class="form-group">
-          <label for="email">Email address:</label>
-          <input type="email" class="form-control" placeholder="Enter email" id="email">
-        </div>
-        <div class="form-group">
-          <label for="pwd">Password:</label>
-          <input type="password" class="form-control" placeholder="Enter password" id="pwd">
-        </div>
-        <div class="form-group form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox"> Remember me
-          </label>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="product" class="btn btn-danger">Thoát</a>
-      </form>
+  <h2>Thêm tài khoản</h2>
+  <form id="create-account">
+    <div class="form-group">
+      <label for="usr">Name:</label>
+      <input type="text" class="form-control" id="usr" name="user">
+    </div>
+    <div class="form-group">
+      <label for="link">Link:</label>
+      <input type="text" class="form-control" id="link" name="link">
+    </div>
+    <div class="form-group">
+      <label for="Description">Description:</label>
+      <textarea name="Description" id="Description"  rows="3"></textarea>
+  </div>
+    <div class="form-group">
+      <label for="content">content:</label>
+      <textarea name="content" id="content" cols="100" rows="3"></textarea>
+  </div>
+    <div class="form-group">
+      <label for="Price">Price:</label>
+      <input type="text" class="form-control" id="Price" name="Price">
+    </div>
+    <div id="result"></div>
+  </form>
+  
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Upload image</button>
+<br><br>
+  <button type="submit" class="btn btn-primary">Submit</button>
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Upload Image</h4>
+        <span type="button" class="close" data-dismiss="modal">&times;</span>
+      </div>
+      <!-- //enctype="multipart/form-data" very important -->
+      <form id="upload_img" method="POST" enctype="multipart/form-data">
+          <!-- Modal body -->   
+          <div class="modal-body">
+              <div class="form-group">
+                  <label for="img">Image:</label>
+                  <input type="file" class="form-control" id="img" name="img">
+              </form>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Upload</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+      </form> 
+             
+    </div>
+  </div>
 </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('#create-account').on('submit', function(e){
+        e.preventDefault();
+        var name = $('#usr').val();
+        var username = $('#usrname').val();
+        var pass = $('#pwd').val();
+        var PHONE = $('#phone').val();
+        var Email = $('#email').val();
+        console.log(name+' '+username);
+        $.ajax({
+            url:'ACCOUNT',
+            type:'POST',
+            data: { 'name': name,'username': username, 'pass': pass , 'PHONE':PHONE, 'Email': Email },
+            success: function (result) {
+              console.log(result);
+                if(result=='ok'){
+                    alert('Success');
+                    window.location.href = 'user'; //chuyen trang
+                }
+                else if(result=='err'){
+                    alert('loi DATA');
+                }
+                else
+                {
+                  alert(result);
+                }
+            }
+        });
+        return false;
+    });
+})
+</script>
+<!-- //ckeditor -->
+<script src="ckeditor/ckeditor.js"></script>
+<script>CKEDITOR.replace('content');</script>
