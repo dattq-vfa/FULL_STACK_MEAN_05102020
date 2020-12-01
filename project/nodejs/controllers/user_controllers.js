@@ -36,7 +36,6 @@ router.get('/user(/:pageNumber)?', async (req,res)=>{
 
     // 3. start 
     let pageNumber = req.params.pageNumber;
-    console.log(typeof(pageNumber))
     if(typeof(pageNumber)=="string") pageNumber = parseInt(pageNumber);
     else if(pageNumber==undefined) pageNumber=1;
     if(pageNumber==undefined || pageNumber==1)
