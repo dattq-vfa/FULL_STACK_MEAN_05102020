@@ -1,0 +1,33 @@
+.navbar-nav{
+    margin: 0;
+    list-style: none;
+    display: flex;
+    background-color: #222326;
+    font-family: 'Myriad Pro', sans-serif;
+    src: url('http://fonts.cdnfonts.com/css/myriad-pro');
+    padding-left: 126px;
+    border-radius: 0px;
+    border-style: none;
+}
+.nav-item-trangchu{
+    text-decoration: none;
+    padding: 18px;
+    background-color:  #222326;
+    color: white;
+}
+.nav-link{
+    text-decoration: none;
+    padding: 18px 19px ;
+    background-color:  #222326;
+    color: white;
+    
+}
+.navbar-nav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+.navbar-nav a:active {
+    background-color: #2196F3;
+    color: white;
+}
+
