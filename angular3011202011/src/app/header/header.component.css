@@ -19,6 +19,7 @@
     background-image: url('../../assets/images/3.png');
     height: 150px;
     color: white;
+    background-size: cover;
 }
 .text_header{
     font-size: 35pt;

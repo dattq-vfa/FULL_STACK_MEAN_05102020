@@ -30,4 +30,27 @@
     background-color: #2196F3;
     color: white;
 }
+.search{
+    background-color: #222326;
+    padding-right: 125px;
+}
+.text_search{
+    padding: 9px 0px;
+    border: none;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.btn_search{
+    padding: 9px 20px;
+    border:none;
+    background-color: white;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
 
+.navbar{
+    display: flex;
+    background-color: #222326;
+    align-items: center;
+    justify-content: space-between;
+}

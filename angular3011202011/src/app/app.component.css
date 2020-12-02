@@ -3,3 +3,20 @@
     padding: 0;
     border: none;
 }
+.container{
+    
+}
+.sidebar{
+    float: left;
+    width: 27.7%;
+    background-color: #ffffff;
+}
+.content{
+    float: left;
+    width: 72.3%;
+    background-color: #ffffff;
+}
+.footer{
+    clear: left;
+    background-color: black;
+}
