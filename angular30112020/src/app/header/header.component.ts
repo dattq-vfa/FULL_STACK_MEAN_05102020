@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+//de goi bien tu cha thi su dung thu vien: iInput
+
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  @Input() title;
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.title)
   }
 
 }

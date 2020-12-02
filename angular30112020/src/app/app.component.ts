@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular30112020';
+  title = 5;
+
+  //mang
+  arr=[1,2,3,4,5]
+  lg;
+  //function
+  Login(username, password){
+    this.lg = 'username: ' + username.value +' and password: '+ password.value;
+  }
+
 }

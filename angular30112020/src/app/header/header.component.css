@@ -1,6 +1,6 @@
 *{
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
     border: none;
 }
 .top{
@@ -13,14 +13,17 @@
     color: white;
 }
 .banner{
-    font-size: 35pt;
     padding-left: 10%;
     font-family: 'Myriad Pro', sans-serif;
     src: url('http://fonts.cdnfonts.com/css/myriad-pro');
     background-image: url('../../assets/images/3.png');
     height: 150px;
     color: white;
+    background-size: cover;
 }
 .text_header{
-    
+    font-size: 35pt;
+}
+.content_header{
+    font-size: 14pt;
 }

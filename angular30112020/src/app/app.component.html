@@ -1,11 +1,40 @@
-<header>
-  <div class="banner"><app-header></app-header></div>
-  <div class="navbar"><app-navbar></app-navbar></div>
-</header>
-<div class="container">
-  <div class="sidebar"><app-left-content></app-left-content></div>
-  <div class="content"><app-right-content></app-right-content></div>
-</div>
-<footer>
-  <app-footer></app-footer>
-</footer>
+<app-header [title] = "title"></app-header>
+
+
+<!-- xuat ra bien  -->
+{{title}}
+
+<!-- dieu kien if  -->
+<h2 *ngIf="title == 5"> okkkkkkkkkkkkkkkk</h2>
+
+<!-- cau lenh switch -->
+<select [ngSwitch]="title">
+  <option *ngSwitchCase="1">1</option>
+  <option *ngSwitchCase="2">2</option>
+  <option *ngSwitchCase="3">3</option>
+  <option *ngSwitchCase="4">4</option>
+  <option *ngSwitchCase="5">5</option>
+</select>
+
+<!-- vong lap for -->
+<ul *ngFor="let i of arr">
+  <li *ngIf="i%2==0">{{i}}</li>
+</ul>
+
+<!-- form login -->
+<h1>Login</h1>
+<form >
+  <div>
+    <label for="Username">Username</label>
+    <input type="text" id="Username" #txtusername>
+  </div>
+  <div>
+    <label for="Password">Password</label>
+    <input type="password" id="Password" #txtpassword>
+  </div>
+  <div>
+    <button type="button" (click)="Login(txtusername,txtpassword)" >Login</button>
+  </div>
+  <p>{{lg}}</p>
+</form>
+

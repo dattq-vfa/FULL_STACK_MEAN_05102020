@@ -1,0 +1,32 @@
+.form{
+    margin-top: 10px;
+    height: auto;
+}
+.group-btn-form{
+    display: flex;
+    flex-direction: column;
+    padding-left: 126px;
+}
+.btn-form-category{
+    background-color:#3b84b0;
+    text-decoration: none;
+    padding: 13px 0px 13px 18px;
+    color: white;
+}
+.btn-form{
+    background-color: #f2f1f1;
+    text-decoration: none;
+    padding: 13px 0px 13px 18px;
+    border-bottom: white solid 1px;
+    color: #444444;
+}
+.btn-form:hover{
+    background-color: #464a51;
+    color: white;
+}
+.btn-form-category a{
+    text-decoration: none;
+}
+.btn-form-category a:hover{
+    background-color: red;
+}
