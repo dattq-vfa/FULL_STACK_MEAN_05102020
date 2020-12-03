@@ -5,6 +5,7 @@
     justify-content: space-between;
     padding-left: 7%;
     padding-right: 7%;
+    background-color: black;
 }
 .footer1 ul{
     padding-left: 0px;
@@ -12,25 +13,37 @@
 .footer2{
     box-sizing: border-box;
 }
-.footer2 li{
-    list-style: none;
+.footer2 p{
+    font-size: 20pt;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 45px;
+    margin-bottom: 30px;
 }
 .footer2 li a{
     text-decoration: none;
+    color: white;
+}
+.footer2 ul li{
+     padding-bottom: 35px;
+     color: yellow;
 }
 .footer3{
-    width: 25%;
-    list-style: none;
+    width: 35%;
 }
-.footer3 li >{
+.footer3 li{
+    list-style: none;
     font-size: 12pt;  
     font-family: Arial, Helvetica, sans-serif; 
+    
 }
-.footer3 li p{
-    font-size: 20pt;
-    font-family: Arial, Helvetica, sans-serif; 
+.footer3 ul li{
+    padding-bottom: 25px;
+    text-align: justify;
 }
-.footer2 li p{
-    font-size: 15pt;
+.footer3 p{
+    font-size: 25pt;
     font-family: Arial, Helvetica, sans-serif; 
+    margin-top: 45px;
+    margin-bottom: 30px;
+    margin-left: 0px;
 }
