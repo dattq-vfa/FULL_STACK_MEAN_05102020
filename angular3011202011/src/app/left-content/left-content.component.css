@@ -30,3 +30,24 @@
 .btn-form-category a:hover{
     background-color: red;
 }
+.btn-form-img{
+    background-color: #f2f1f1;
+    text-decoration: none;
+    color: #444444;
+    text-align: center;
+    padding: 10px 20px;
+}
+.btn-form-img img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 100%;
+}
+.btn-form-img p{
+    text-align: start;
+}
+.btn-form-img:hover{
+    background-color: #464a51;
+    color: white;
+}

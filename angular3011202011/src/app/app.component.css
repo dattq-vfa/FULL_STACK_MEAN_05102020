@@ -1,10 +1,7 @@
-* {
-    margin: 0px auto;
-    padding: 0;
-    border: none;
-}
+
 .container{
-    
+    display: flex;
+    margin: 0px;
 }
 .sidebar{
     float: left;
@@ -18,5 +15,8 @@
 }
 .footer{
     clear: left;
+    float: none;
     background-color: black;
+    height: 100px;
+    margin-top: 45px;
 }

@@ -1,5 +1,50 @@
 .form-content{
     margin-top: 10px;
     padding-left: 20px;
+    padding-right: 125px;
     height: auto;
+}
+.img-branch{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+.form-content p{
+    font-size: 15pt;
+}
+.form-content a{
+    font-size: 15pt;
+    color: #0060ff;
+}
+.form-content span{
+    font-size: 15pt;
+    color: #fe2121;
+}
+.nav1{
+    background-color: seagreen;
+    height: 50px;
+}
+.categorys{
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.categorys a{
+    margin: 10px 0px 10px 0px;
+}
+.categorys a:hover{
+    color: white;
+    background-color: #3b84b0;
+}
+.category{
+    background-color: #222326;
+    text-decoration: none;
+}
+.category p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    color: white;
+    text-align: center;
 }
