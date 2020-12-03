@@ -1,4 +1,4 @@
-const express = require('express');
+gotconst express = require('express');
 const router = express.Router();
 
 //goi jwt

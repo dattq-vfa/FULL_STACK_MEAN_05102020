@@ -1,4 +1,36 @@
 
 .footer1{
     color: blanchedalmond;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 7%;
+    padding-right: 7%;
+}
+.footer1 ul{
+    padding-left: 0px;
+}
+.footer2{
+    box-sizing: border-box;
+}
+.footer2 li{
+    list-style: none;
+}
+.footer2 li a{
+    text-decoration: none;
+}
+.footer3{
+    width: 25%;
+    list-style: none;
+}
+.footer3 li >{
+    font-size: 12pt;  
+    font-family: Arial, Helvetica, sans-serif; 
+}
+.footer3 li p{
+    font-size: 20pt;
+    font-family: Arial, Helvetica, sans-serif; 
+}
+.footer2 li p{
+    font-size: 15pt;
+    font-family: Arial, Helvetica, sans-serif; 
 }
