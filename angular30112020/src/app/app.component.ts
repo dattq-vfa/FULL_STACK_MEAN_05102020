@@ -16,4 +16,8 @@ export class AppComponent {
     this.lg = 'username: ' + username.value +' and password: '+ password.value;
   }
 
+  acceptData(tmp){
+    console.log(tmp)
+  }
+
 }

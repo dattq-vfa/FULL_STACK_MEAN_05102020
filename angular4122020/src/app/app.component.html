@@ -1,34 +1,4 @@
 
-<style>
-  .container{
-    width: 900px;
-    margin: auto;
-  }
-  header{
-    background: blue;
-    color: burlywood;
-    padding: 10px;
-    text-align: center;
-  }
-  nav{
-    background: black;
-    color: white;
-    padding: 10px;
-    text-align: center;
-  }
-  footer{
-    background:green;
-    color: white;
-    padding: 10px;
-    text-align: center;
-  }
-  .content{
-    display: flex;
-  }
-  .content .sidebar{
-    width: 75%;
-  }
-</style>
 
 <header>
   <div class="container">
@@ -47,14 +17,18 @@
     <div class="content">
       <div class="sidebar">
         <ul>
-          <li><a href="#">Danh Mục</a></li>
-          <li><a href="#">Sản Phẩm</a></li>
-          <li><a href="#">Đăng Nhập</a></li>
-          <li><a href="#">Đăng Ký</a></li>
-          <li><a href="#">Liên Hệ</a></li>
+          <li><a routerLink="">Trang Chủ</a></li>
+          <li><a routerLink="danh-muc/abc">Danh Mục</a></li>
+          <li><a routerLink="san-pham/abc">Sản Phẩm</a></li>
+          <li><a routerLink="dang-ky-thanh-vien.html">Đăng Ký</a></li>
+          <li><a routerLink="dang-nhap.html">Đăng Nhập</a></li>
+          <li><a routerLink="dang-ky-thanh-vien.html">Đăng Ký</a></li>
+          <li><a routerLink="lien-he.html">Liên Hệ</a></li>
         </ul>
       </div>
-      <div class="main">main</div>
+      <div class="main">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
 </main>

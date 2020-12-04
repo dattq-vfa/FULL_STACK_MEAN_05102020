@@ -1,0 +1,28 @@
+.container{
+    width: 900px;
+    margin: auto;
+  }
+  header{
+    background: blue;
+    color: burlywood;
+    padding: 10px;
+    text-align: center;
+  }
+  nav{
+    background: black;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  footer{
+    background:green;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  .content{
+    display: flex;
+  }
+  .content .sidebar{
+    width: 75%;
+  }
