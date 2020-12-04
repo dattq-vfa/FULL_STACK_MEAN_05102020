@@ -1,11 +1,12 @@
 
 .footer1{
-    color: blanchedalmond;
+    color: #ffffff;
     display: flex;
     justify-content: space-between;
     padding-left: 7%;
     padding-right: 7%;
     background-color: black;
+    padding-bottom: 25px;
 }
 .footer1 ul{
     padding-left: 0px;
@@ -21,14 +22,15 @@
 }
 .footer2 li a{
     text-decoration: none;
-    color: white;
+    color:#ffffff;
 }
 .footer2 ul li{
      padding-bottom: 35px;
      color: yellow;
+     list-style-position: inside;
 }
 .footer3{
-    width: 35%;
+    width: 25%;
 }
 .footer3 li{
     list-style: none;
@@ -37,8 +39,8 @@
     
 }
 .footer3 ul li{
-    padding-bottom: 25px;
     text-align: justify;
+    padding-bottom: 30px;
 }
 .footer3 p{
     font-size: 25pt;
@@ -47,3 +49,16 @@
     margin-bottom: 30px;
     margin-left: 0px;
 }
+.detail_infor{
+    display: flex;
+    margin-top: 0px;
+}
+.detail_infor p{
+    font-size: 12pt; 
+    margin: 0px 10px;
+}
+.icon {
+    font-size: 30px;
+    width: 50px;
+    text-decoration: none;
+  }

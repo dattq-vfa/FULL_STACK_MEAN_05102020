@@ -3,8 +3,7 @@
     list-style: none;
     display: flex;
     background-color: #222326;
-    font-family: 'Myriad Pro', sans-serif;
-    src: url('http://fonts.cdnfonts.com/css/myriad-pro');
+    font-family: Arial, Helvetica, sans-serif;
     padding-left: 126px;
     border-radius: 0px;
     border-style: none;
@@ -14,13 +13,14 @@
     padding: 18px;
     background-color:  #222326;
     color: white;
+    font-size: 13pt;
 }
 .nav-link{
     text-decoration: none;
     padding: 18px 19px ;
     background-color:  #222326;
     color: white;
-    
+    font-size: 13pt;
 }
 .navbar-nav a:hover {
     background-color: #ddd;
@@ -48,9 +48,10 @@
     border-bottom-left-radius: 0px;
 }
 
-.navbar{
+#navbar{
     display: flex;
     background-color: #222326;
     align-items: center;
     justify-content: space-between;
 }
+

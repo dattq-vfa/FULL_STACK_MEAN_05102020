@@ -23,8 +23,16 @@
 }
 .nav1{
     margin-top: 20px;
-    background-color: seagreen;
+    background-image: url(../../assets/images/18.png);
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 50px;
+    line-height: 50px;
+    color: white;
+    padding-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
 }
 .categorys{
     display: flex;
@@ -42,10 +50,18 @@
 .category{
     background-color: #222326;
     text-decoration: none;
+    width: 30%;
 }
 .category p{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 13pt;
     color: white;
     text-align: center;
+    padding: 10px;
+}
+.category img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }

@@ -46,6 +46,8 @@
 }
 .btn-form-img p{
     text-align: start;
+    padding-top: 13px;
+    padding-bottom: 13px;
 }
 .btn-form-img:hover{
     background-color: #464a51;
