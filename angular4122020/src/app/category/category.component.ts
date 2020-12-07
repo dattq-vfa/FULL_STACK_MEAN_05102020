@@ -15,7 +15,7 @@ export class CategoryComponent implements OnInit {
   constructor(private router:ActivatedRoute, private http: HttpClient) { }
 
   title;
-
+  obj;
   api_url = 'http://localhost:3000/product/list';
 
   ngOnInit(): void {
@@ -25,7 +25,7 @@ export class CategoryComponent implements OnInit {
 
     });
     this.http.get(this.api_url).subscribe((kq)=>{
-      console.log(kq);
+      this.obj = kq['data'];
     });
   }
 

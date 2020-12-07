@@ -13,7 +13,7 @@ import { RegisterComponent } from './register/register.component';
 import { Page404Component } from './page404/page404.component';
 
 //gọi http, để gọi api
-import { HttpClient} from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,8 @@ import { HttpClient} from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
