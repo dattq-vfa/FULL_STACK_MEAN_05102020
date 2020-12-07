@@ -12,6 +12,9 @@ import { ProductComponent } from './product/product.component';
 import { RegisterComponent } from './register/register.component';
 import { Page404Component } from './page404/page404.component';
 
+//gọi http, để gọi api
+import { HttpClient} from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,

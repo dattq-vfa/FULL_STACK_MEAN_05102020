@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 //goi localstorage
 var LocalStorage = require('node-localstorage').LocalStorage;
 localStorage = new LocalStorage('./cratch');
-
 router.get('/',(req,res)=>{
     serectKey = '@#$%';
     jwt.verify(localStorage.getItem('token'),serectKey,(err,data)=>{//jwt.verify(token,serectKey,(err,data)=>{
