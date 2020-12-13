@@ -1,1 +1,12 @@
 <p>login works!</p>
+<div>
+    <label for="username">username</label>
+    <input type="username" id="username" #txtusername>
+</div>
+<div>
+    <label for="password">password</label>
+    <input type="password" id="password" #txtpassword>
+</div>
+<div>
+    <button type="button" (click)="login(txtusername,txtpassword)">Submit</button>
+</div>
