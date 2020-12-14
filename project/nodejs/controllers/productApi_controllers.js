@@ -96,5 +96,8 @@ router.post('/product/add',(req,res)=>{
             })
 });
 
+router.post('/product/add/list',(req,res)=>{
+    res.send({kq:1,data:'ok'})
+})
 
 module.exports = router;//xuat ra du lieu de su dung

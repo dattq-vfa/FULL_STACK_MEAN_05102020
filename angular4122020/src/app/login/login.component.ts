@@ -1,3 +1,7 @@
+//cách tạo thêm service : ng g s contact/contact  , ng g s Thư mục muốn tạo/tên service
+
+
+
 import { Component, OnInit } from '@angular/core';
 //import service 
 import { LoginService } from './login.service';

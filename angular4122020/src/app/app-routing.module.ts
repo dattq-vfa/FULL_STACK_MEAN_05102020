@@ -12,6 +12,7 @@ import {PostComponent} from './post/post.component'
 import {ProductComponent} from './product/product.component'
 import {RegisterComponent} from './register/register.component'
 import { Page404Component }from './page404/page404.component'
+import { CategoryGuard } from './category/category.guard'
 
 const routes: Routes = [
   {
@@ -20,7 +21,8 @@ const routes: Routes = [
   },
   {
     path: 'danh-muc/:id',
-    component: CategoryComponent
+    component: CategoryComponent,
+    canActivate: [CategoryGuard] //thêm dòng này vào để AUTH
   },
   {
     path: 'san-pham/:id',
