@@ -1,1 +1,50 @@
-<p>contact works!</p>
+<style>
+    form{
+        border: 1px solid blue;
+        border-radius: 10px;
+        margin: 20px 0;
+        padding: 20px;
+    }
+    form .fr{
+        margin-bottom: 10px;
+        display: flex;
+    }
+    form .fr label{
+        width: 50%;
+    }
+    form .fr input{
+        width: 80%;
+        height: 30px;
+    }
+
+    form .ng-invalid{
+        border-left: 7px solid red ;
+    }
+    form .ng-valid{
+        border-left: 7px solid green ;
+    }
+    .err{
+        color: red;
+    }
+</style>
+
+<form #loginForm = "ngForm" (ngSubmit)="login(loginForm.value)">
+    <div class="fr">
+        <label for="usr">ten dang nhap</label>
+        <input required #username="ngModel" type="text" name="usr" id="usr" ngModel> 
+        <!-- {{username.touched}} -->
+        <span *ngIf="username.invalid" class="err">ten khong duoc rong</span>
+        <!-- //phai them ngModel moi get dc data -->
+        <!-- check form : #username="ngModel" sau do goi ra check  {{username.touched}}-->
+    </div>
+
+    <div class="fr">
+        <label for="pas">mat khau</label>
+        <input required  #pass="ngModel" type="text" name="pas" id="pas" ngModel>
+        <!-- {{pass.touched}} -->
+        <span *ngIf="pass.invalid" class="err">mat khau khong duoc rong</span>
+    </div>
+    <div class="fr">
+        <button type="submit">dang nhap</button>
+    </div>
+</form>

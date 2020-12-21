@@ -11,9 +11,12 @@ import { PostComponent } from './post/post.component';
 import { ProductComponent } from './product/product.component';
 import { RegisterComponent } from './register/register.component';
 import { Page404Component } from './page404/page404.component';
+//load form
+import { FormsModule } from '@angular/forms'
 
 //gọi http, để gọi api
 import { HttpClientModule} from '@angular/common/http';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule     //import form modul
   ],
   providers: [],
   bootstrap: [AppComponent]
