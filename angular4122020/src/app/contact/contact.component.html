@@ -31,7 +31,7 @@
 <form #loginForm = "ngForm" (ngSubmit)="login(loginForm.value)">
     <div class="fr">
         <label for="usr">ten dang nhap</label>
-        <input required #username="ngModel" type="text" name="usr" id="usr" ngModel> 
+        <input required #username="ngModel" type="text" name="usr" id="usr" [ngModel]="userData.username"> 
         <!-- {{username.touched}} -->
         <span *ngIf="username.invalid" class="err">ten khong duoc rong</span>
         <!-- //phai them ngModel moi get dc data -->
@@ -40,11 +40,13 @@
 
     <div class="fr">
         <label for="pas">mat khau</label>
-        <input required  #pass="ngModel" type="text" name="pas" id="pas" ngModel>
+        <!-- [ngModel]="userData.password" load data lên khi chỉnh sữa form -->
+        <input required  #pass="ngModel" type="text" name="pas" id="pas" [ngModel]="userData.password">
         <!-- {{pass.touched}} -->
         <span *ngIf="pass.invalid" class="err">mat khau khong duoc rong</span>
     </div>
     <div class="fr">
-        <button type="submit">dang nhap</button>
+        <!-- [disabled]="loginForm.invalid" vô hiệu hóa button trước khi nhập đủ thông tin -->
+        <button [disabled]="loginForm.invalid" type="submit">dang nhap</button> 
     </div>
 </form>
